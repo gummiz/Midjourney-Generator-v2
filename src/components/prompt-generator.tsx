@@ -216,10 +216,10 @@ export function PromptGenerator() {
                   <SelectItem value="Close-up">Close-up</SelectItem>
                   <SelectItem value="Aerial view">Aerial view</SelectItem>
                   <SelectItem value="Bird's eye view">
-                    Bird's eye view
+                    Bird&apos;s eye view
                   </SelectItem>
                   <SelectItem value="Worm's eye view">
-                    Worm's eye view
+                    Worm&apos;s eye view
                   </SelectItem>
                   <SelectItem value="Panoramic">Panoramic</SelectItem>
                   <SelectItem value="First person">First person</SelectItem>

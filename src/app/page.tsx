@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { PromptGenerator } from "@/components/prompt-generator";
 
 export default function Home() {
