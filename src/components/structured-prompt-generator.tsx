@@ -1,19 +1,31 @@
-'use client'
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Separator } from "@/components/ui/separator"
-import { ClipboardCopy, Link } from "lucide-react"
-
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
+import { ClipboardCopy } from "lucide-react";
+import Link from "next/link";
 export function StructuredPromptGenerator() {
-
-
   type FormData = {
     medium: string;
     subject: string;
@@ -36,28 +48,6 @@ export function StructuredPromptGenerator() {
     styleRandom: boolean;
   };
 
-  // const [formData, setFormData] = useState<FormData>({
-  //   medium: "",
-  //   subject: "",
-  //   environment: "",
-  //   composition: {
-  //     view: "None",
-  //     camera: "None",
-  //     lens: "None",
-  //     lighting: "None",
-  //   },
-  //   style: {
-  //     descriptorI: "None",
-  //     descriptorII: "None",
-  //     artist: "",
-  //     filmName: "",
-  //   },
-  //   aspectRatio: "1:1",
-  //   ignoreWords: "",
-  //   tile: false,
-  //   styleRaw: false
-  // });
-
   const [formData, setFormData] = useState<FormData>({
     medium: "",
     subject: "",
@@ -67,12 +57,10 @@ export function StructuredPromptGenerator() {
     lens: "None",
     lighting: "None",
 
-
     descriptorI: "None",
     descriptorII: "None",
     artist: "",
     filmName: "",
-
 
     imageUrl: "",
     aspectRatio: "1:1",
@@ -92,38 +80,39 @@ export function StructuredPromptGenerator() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-
   const generatePrompt = () => {
-    let prompt = ""
+    let prompt = "";
 
     // MEDIUM and SUBJECT
-    prompt += `${formData.medium} of ${formData.subject}`
+    prompt += `${formData.medium} of ${formData.subject}`;
 
     // ENVIRONMENT
     if (formData.environment) {
-      prompt += ` in ${formData.environment}`
+      prompt += ` in ${formData.environment}`;
     }
 
     // COMPOSITION
-    if (formData.view !== "None") prompt += `, ${formData.view}`
-    if (formData.camera !== "None") prompt += `, ${formData.camera}`
-    if (formData.lens !== "None") prompt += `, ${formData.lens}`
-    if (formData.lighting !== "None") prompt += `, ${formData.lighting}`
+    if (formData.view !== "None") prompt += `, ${formData.view}`;
+    if (formData.camera !== "None") prompt += `, ${formData.camera}`;
+    if (formData.lens !== "None") prompt += `, ${formData.lens}`;
+    if (formData.lighting !== "None") prompt += `, ${formData.lighting}`;
 
     // STYLE
-    if (formData.descriptorI !== "None") prompt += `, ${formData.descriptorI}`
-    if (formData.descriptorII !== "None") prompt += `, ${formData.descriptorII}`
-    if (formData.artist) prompt += `, by ${formData.artist}`
-    if (formData.filmName) prompt += `, ${formData.filmName} film style`
+    if (formData.descriptorI !== "None") prompt += `, ${formData.descriptorI}`;
+    if (formData.descriptorII !== "None")
+      prompt += `, ${formData.descriptorII}`;
+    if (formData.artist) prompt += `, by ${formData.artist}`;
+    if (formData.filmName) prompt += `, ${formData.filmName} film style`;
 
     // Additional parameters
-    if (formData.tile) prompt += " --tile"
-    if (formData.styleRaw) prompt += " --style raw"
-    if (formData.aspectRatio !== "None") prompt += ` --ar ${formData.aspectRatio}`
-    if (formData.ignoreWords) prompt += ` --no ${formData.ignoreWords}`
+    if (formData.tile) prompt += " --tile";
+    if (formData.styleRaw) prompt += " --style raw";
+    if (formData.aspectRatio !== "None")
+      prompt += ` --ar ${formData.aspectRatio}`;
+    if (formData.ignoreWords) prompt += ` --no ${formData.ignoreWords}`;
 
-    setGeneratedPrompt(prompt)
-  }
+    setGeneratedPrompt(prompt);
+  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedPrompt);
@@ -131,20 +120,64 @@ export function StructuredPromptGenerator() {
     setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
   };
 
-
   return (
     <Card className="w-full max-w-3xl mx-auto">
-     <CardHeader>
+      <CardHeader>
         <CardTitle className="text-2xl font-normal text-gray-600">
           Midjourney Prompt Helper{" "}
         </CardTitle>
         <CardDescription>
-
-            <span className="descriptionblack">A handy tool for generating advanced prompts in  <a href="https://midjourney.com/" target="_blank" rel="noopener noreferrer">Midjourney</a>.
-            Version 2 - November 2024 - <a href="https://github.com/gummiz/Midjourney-Generator" target="_blank" rel="noopener noreferrer">Quickguide</a></span>
-            <br/>Developed by Stefan Kummerlöw.
-            Connect with me on <a href="https://bit.ly/kummerloewLinkedIn" target="_blank" rel="noopener noreferrer">LinkedIn</a>, <a href="https://bit.ly/GithubTadaptive" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="https://bit.ly/XTadaptive" target="_blank" rel="noopener noreferrer">X</a> and  <a href="https://bit.ly/IGTadaptive" target="_blank" rel="noopener noreferrer">Instagram</a>
-
+          <span className="descriptionblack">
+            A handy tool for generating advanced prompts in{" "}
+            <Link
+              href="https://midjourney.com/"
+              target="_blank"
+              className="text-purple-600 hover:underline"
+            >
+              Midjourney
+            </Link>
+            . Version 2 - November 2024 -{" "}
+            <Link
+              href="https://github.com/gummiz/Midjourney-Generator"
+              target="_blank"
+              className="text-purple-600 hover:underline"
+            >
+              Quickguide
+            </Link>
+          </span>
+          <br />
+          Developed by Stefan Kummerlöw. Connect with me on{" "}
+          <Link
+            href="https://bit.ly/kummerloewLinkedIn"
+            target="_blank"
+            className="text-purple-600 hover:underline"
+          >
+            LinkedIn
+          </Link>
+          ,{" "}
+          <Link
+            href="https://bit.ly/GithubTadaptive"
+            target="_blank"
+            className="text-purple-600 hover:underline"
+          >
+            GitHub
+          </Link>
+          ,{" "}
+          <Link
+            href="https://bit.ly/XTadaptive"
+            target="_blank"
+            className="text-purple-600 hover:underline"
+          >
+            X
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="https://bit.ly/IGTadaptive"
+            target="_blank"
+            className="text-purple-600 hover:underline"
+          >
+            Instagram
+          </Link>
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -152,8 +185,13 @@ export function StructuredPromptGenerator() {
           {/* MEDIUM */}
           <div>
             <Label className="font-bold">MEDIUM</Label>
-            <CardDescription className="text-sm mb-2">Choose the artistic medium for your image</CardDescription>
-            <Select value={formData.medium} onValueChange={(value) => handleInputChange("medium", value)}>
+            <CardDescription className="text-sm mb-2">
+              Choose the artistic medium for your image
+            </CardDescription>
+            <Select
+              value={formData.medium}
+              onValueChange={(value) => handleInputChange("medium", value)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -164,7 +202,9 @@ export function StructuredPromptGenerator() {
                   <SelectItem value="Digital Art">Digital Art</SelectItem>
                   <SelectItem value="Photography">Photography</SelectItem>
                   <SelectItem value="Film Still">Film Still</SelectItem>
-                  <SelectItem value="Cinematic Portrait">Cinematic Portrait</SelectItem>
+                  <SelectItem value="Cinematic Portrait">
+                    Cinematic Portrait
+                  </SelectItem>
                   <SelectItem value="3D Render">3D Render</SelectItem>
                 </SelectGroup>
 
@@ -174,7 +214,9 @@ export function StructuredPromptGenerator() {
                   <SelectItem value="Watercolor">Watercolor</SelectItem>
                   <SelectItem value="Ink Drawing">Ink Drawing</SelectItem>
                   <SelectItem value="Pencil Drawing">Pencil Drawing</SelectItem>
-                  <SelectItem value="Charcoal Drawing">Charcoal Drawing</SelectItem>
+                  <SelectItem value="Charcoal Drawing">
+                    Charcoal Drawing
+                  </SelectItem>
                   <SelectItem value="Pastel">Pastel</SelectItem>
                 </SelectGroup>
 
@@ -215,8 +257,12 @@ export function StructuredPromptGenerator() {
 
           {/* SUBJECT */}
           <div>
-            <Label htmlFor="subject" className="font-bold">SUBJECT</Label>
-            <CardDescription className="text-sm mb-2">Describe the main focus of your image</CardDescription>
+            <Label htmlFor="subject" className="font-bold">
+              SUBJECT
+            </Label>
+            <CardDescription className="text-sm mb-2">
+              Describe the main focus of your image
+            </CardDescription>
             <Textarea
               id="subject"
               value={formData.subject}
@@ -229,8 +275,12 @@ export function StructuredPromptGenerator() {
 
           {/* ENVIRONMENT */}
           <div>
-            <Label htmlFor="environment" className="font-bold">ENVIRONMENT</Label>
-            <CardDescription className="text-sm mb-2">Describe the setting or background</CardDescription>
+            <Label htmlFor="environment" className="font-bold">
+              ENVIRONMENT
+            </Label>
+            <CardDescription className="text-sm mb-2">
+              Describe the setting or background
+            </CardDescription>
             <Textarea
               id="environment"
               value={formData.environment}
@@ -244,11 +294,16 @@ export function StructuredPromptGenerator() {
           {/* COMPOSITION */}
           <div>
             <Label className="font-bold">COMPOSITION</Label>
-            <CardDescription className="text-sm mb-2">Define the visual arrangement and technical aspects</CardDescription>
+            <CardDescription className="text-sm mb-2">
+              Define the visual arrangement and technical aspects
+            </CardDescription>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="font-bold">View</Label>
-                <Select value={formData.view} onValueChange={(value) => handleInputChange("view", value)}>
+                <Select
+                  value={formData.view}
+                  onValueChange={(value) => handleInputChange("view", value)}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -259,7 +314,9 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="Front view">Front view</SelectItem>
                       <SelectItem value="Back view">Back view</SelectItem>
                       <SelectItem value="Profile view">Profile view</SelectItem>
-                      <SelectItem value="Three-quarter view">Three-quarter view</SelectItem>
+                      <SelectItem value="Three-quarter view">
+                        Three-quarter view
+                      </SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
@@ -273,31 +330,46 @@ export function StructuredPromptGenerator() {
                     <SelectGroup className="pb-2">
                       <SelectLabel>Perspective</SelectLabel>
                       <SelectItem value="Aerial view">Aerial view</SelectItem>
-                      <SelectItem value="Bird's eye view">Bird&apos;s eye view</SelectItem>
-                      <SelectItem value="Worm's eye view">Worm&apos;s eye view</SelectItem>
+                      <SelectItem value="Bird's eye view">
+                        Bird&apos;s eye view
+                      </SelectItem>
+                      <SelectItem value="Worm's eye view">
+                        Worm&apos;s eye view
+                      </SelectItem>
                       <SelectItem value="First person">First person</SelectItem>
                       <SelectItem value="Third person">Third person</SelectItem>
-                      <SelectItem value="Over the shoulder">Over the shoulder</SelectItem>
+                      <SelectItem value="Over the shoulder">
+                        Over the shoulder
+                      </SelectItem>
                       <SelectItem value="Isometric">Isometric</SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
                       <SelectLabel>Special Effects</SelectLabel>
-                      <SelectItem value="Shallow depth of field">Shallow depth of field</SelectItem>
+                      <SelectItem value="Shallow depth of field">
+                        Shallow depth of field
+                      </SelectItem>
                       <SelectItem value="Dutch angle">Dutch angle</SelectItem>
                       <SelectItem value="Panoramic">Panoramic</SelectItem>
                       <SelectItem value="Fish eye">Fish eye</SelectItem>
                       <SelectItem value="Tilt shift">Tilt shift</SelectItem>
-                      <SelectItem value="Double exposure">Double exposure</SelectItem>
+                      <SelectItem value="Double exposure">
+                        Double exposure
+                      </SelectItem>
                       <SelectItem value="Motion blur">Motion blur</SelectItem>
-                      <SelectItem value="Long exposure">Long exposure</SelectItem>
+                      <SelectItem value="Long exposure">
+                        Long exposure
+                      </SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <Label className="font-bold">Camera</Label>
-                <Select value={formData.camera} onValueChange={(value) => handleInputChange("camera", value)}>
+                <Select
+                  value={formData.camera}
+                  onValueChange={(value) => handleInputChange("camera", value)}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -308,23 +380,39 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="Canon EOS R5">Canon EOS R5</SelectItem>
                       <SelectItem value="Sony A7R IV">Sony A7R IV</SelectItem>
                       <SelectItem value="Nikon Z9">Nikon Z9</SelectItem>
-                      <SelectItem value="Fujifilm GFX 100S">Fujifilm GFX 100S</SelectItem>
-                      <SelectItem value="Hasselblad X2D">Hasselblad X2D</SelectItem>
+                      <SelectItem value="Fujifilm GFX 100S">
+                        Fujifilm GFX 100S
+                      </SelectItem>
+                      <SelectItem value="Hasselblad X2D">
+                        Hasselblad X2D
+                      </SelectItem>
                       <SelectItem value="Leica M11">Leica M11</SelectItem>
-                      <SelectItem value="Phase One IQ4">Phase One IQ4</SelectItem>
-                      <SelectItem value="Canon 5D Mark IV">Canon 5D Mark IV</SelectItem>
+                      <SelectItem value="Phase One IQ4">
+                        Phase One IQ4
+                      </SelectItem>
+                      <SelectItem value="Canon 5D Mark IV">
+                        Canon 5D Mark IV
+                      </SelectItem>
                       <SelectItem value="Sony A1">Sony A1</SelectItem>
                       <SelectItem value="Nikon D850">Nikon D850</SelectItem>
-                      <SelectItem value="Fujifilm X-T4">Fujifilm X-T4</SelectItem>
-                      <SelectItem value="Panasonic S1R">Panasonic S1R</SelectItem>
+                      <SelectItem value="Fujifilm X-T4">
+                        Fujifilm X-T4
+                      </SelectItem>
+                      <SelectItem value="Panasonic S1R">
+                        Panasonic S1R
+                      </SelectItem>
                       <SelectItem value="Olympus OM-1">Olympus OM-1</SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
                       <SelectLabel>Cinema Cameras</SelectLabel>
                       <SelectItem value="RED V-Raptor">RED V-Raptor</SelectItem>
-                      <SelectItem value="ARRI Alexa Mini">ARRI Alexa Mini</SelectItem>
-                      <SelectItem value="Blackmagic URSA">Blackmagic URSA</SelectItem>
+                      <SelectItem value="ARRI Alexa Mini">
+                        ARRI Alexa Mini
+                      </SelectItem>
+                      <SelectItem value="Blackmagic URSA">
+                        Blackmagic URSA
+                      </SelectItem>
                       <SelectItem value="Canon C70">Canon C70</SelectItem>
                       <SelectItem value="Sony FX9">Sony FX9</SelectItem>
                       <SelectItem value="RED Komodo">RED Komodo</SelectItem>
@@ -334,7 +422,10 @@ export function StructuredPromptGenerator() {
               </div>
               <div>
                 <Label className="font-bold">Lens</Label>
-                <Select value={formData.lens} onValueChange={(value) => handleInputChange("lens", value)}>
+                <Select
+                  value={formData.lens}
+                  onValueChange={(value) => handleInputChange("lens", value)}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -351,15 +442,25 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="50mm f/1.2">50mm f/1.2</SelectItem>
                       <SelectItem value="85mm f/1.4">85mm f/1.4</SelectItem>
                       <SelectItem value="90mm f/2.8">90mm f/2.8</SelectItem>
-                      <SelectItem value="100mm f/2.8 Macro">100mm f/2.8 Macro</SelectItem>
+                      <SelectItem value="100mm f/2.8 Macro">
+                        100mm f/2.8 Macro
+                      </SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
                       <SelectLabel>Zoom Lenses</SelectLabel>
-                      <SelectItem value="14-24mm f/2.8">14-24mm f/2.8</SelectItem>
-                      <SelectItem value="24-70mm f/2.8">24-70mm f/2.8</SelectItem>
-                      <SelectItem value="70-200mm f/2.8">70-200mm f/2.8</SelectItem>
-                      <SelectItem value="100-400mm f/4.5-5.6">100-400mm f/4.5-5.6</SelectItem>
+                      <SelectItem value="14-24mm f/2.8">
+                        14-24mm f/2.8
+                      </SelectItem>
+                      <SelectItem value="24-70mm f/2.8">
+                        24-70mm f/2.8
+                      </SelectItem>
+                      <SelectItem value="70-200mm f/2.8">
+                        70-200mm f/2.8
+                      </SelectItem>
+                      <SelectItem value="100-400mm f/4.5-5.6">
+                        100-400mm f/4.5-5.6
+                      </SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
@@ -374,7 +475,12 @@ export function StructuredPromptGenerator() {
               </div>
               <div>
                 <Label className="font-bold">Lighting</Label>
-                <Select value={formData.lighting} onValueChange={(value) => handleInputChange("lighting", value)}>
+                <Select
+                  value={formData.lighting}
+                  onValueChange={(value) =>
+                    handleInputChange("lighting", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -382,28 +488,56 @@ export function StructuredPromptGenerator() {
                     <SelectGroup className="pb-2">
                       <SelectLabel>Basic</SelectLabel>
                       <SelectItem value="None">None</SelectItem>
-                      <SelectItem value="Natural light">Natural light</SelectItem>
-                      <SelectItem value="Soft lighting">Soft lighting</SelectItem>
-                      <SelectItem value="Hard lighting">Hard lighting</SelectItem>
+                      <SelectItem value="Natural light">
+                        Natural light
+                      </SelectItem>
+                      <SelectItem value="Soft lighting">
+                        Soft lighting
+                      </SelectItem>
+                      <SelectItem value="Hard lighting">
+                        Hard lighting
+                      </SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
                       <SelectLabel>Studio Techniques</SelectLabel>
-                      <SelectItem value="Studio lighting">Studio lighting</SelectItem>
-                      <SelectItem value="Dramatic lighting">Dramatic lighting</SelectItem>
-                      <SelectItem value="Cinematic lighting">Cinematic lighting</SelectItem>
-                      <SelectItem value="High key lighting">High key lighting</SelectItem>
-                      <SelectItem value="Low key lighting">Low key lighting</SelectItem>
+                      <SelectItem value="Studio lighting">
+                        Studio lighting
+                      </SelectItem>
+                      <SelectItem value="Dramatic lighting">
+                        Dramatic lighting
+                      </SelectItem>
+                      <SelectItem value="Cinematic lighting">
+                        Cinematic lighting
+                      </SelectItem>
+                      <SelectItem value="High key lighting">
+                        High key lighting
+                      </SelectItem>
+                      <SelectItem value="Low key lighting">
+                        Low key lighting
+                      </SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
                       <SelectLabel>Portrait Lighting</SelectLabel>
-                      <SelectItem value="Rembrandt lighting">Rembrandt lighting</SelectItem>
-                      <SelectItem value="Split lighting">Split lighting</SelectItem>
-                      <SelectItem value="Butterfly lighting">Butterfly lighting</SelectItem>
-                      <SelectItem value="Loop lighting">Loop lighting</SelectItem>
-                      <SelectItem value="Broad lighting">Broad lighting</SelectItem>
-                      <SelectItem value="Short lighting">Short lighting</SelectItem>
+                      <SelectItem value="Rembrandt lighting">
+                        Rembrandt lighting
+                      </SelectItem>
+                      <SelectItem value="Split lighting">
+                        Split lighting
+                      </SelectItem>
+                      <SelectItem value="Butterfly lighting">
+                        Butterfly lighting
+                      </SelectItem>
+                      <SelectItem value="Loop lighting">
+                        Loop lighting
+                      </SelectItem>
+                      <SelectItem value="Broad lighting">
+                        Broad lighting
+                      </SelectItem>
+                      <SelectItem value="Short lighting">
+                        Short lighting
+                      </SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
@@ -417,9 +551,15 @@ export function StructuredPromptGenerator() {
                       <SelectLabel>Special Effects</SelectLabel>
                       <SelectItem value="Rim lighting">Rim lighting</SelectItem>
                       <SelectItem value="Backlight">Backlight</SelectItem>
-                      <SelectItem value="Volumetric lighting">Volumetric lighting</SelectItem>
-                      <SelectItem value="Practical lighting">Practical lighting</SelectItem>
-                      <SelectItem value="Accent lighting">Accent lighting</SelectItem>
+                      <SelectItem value="Volumetric lighting">
+                        Volumetric lighting
+                      </SelectItem>
+                      <SelectItem value="Practical lighting">
+                        Practical lighting
+                      </SelectItem>
+                      <SelectItem value="Accent lighting">
+                        Accent lighting
+                      </SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -432,11 +572,18 @@ export function StructuredPromptGenerator() {
           {/* STYLE */}
           <div>
             <Label className="font-bold">STYLE</Label>
-            <CardDescription className="text-sm mb-2">Define the artistic style and mood</CardDescription>
+            <CardDescription className="text-sm mb-2">
+              Define the artistic style and mood
+            </CardDescription>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="font-bold">Descriptor I</Label>
-                <Select value={formData.descriptorI} onValueChange={(value) => handleInputChange("descriptorI", value)}>
+                <Select
+                  value={formData.descriptorI}
+                  onValueChange={(value) =>
+                    handleInputChange("descriptorI", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -486,7 +633,12 @@ export function StructuredPromptGenerator() {
               </div>
               <div>
                 <Label className="font-bold">Descriptor II</Label>
-                <Select value={formData.descriptorII} onValueChange={(value) => handleInputChange("descriptorII", value)}>
+                <Select
+                  value={formData.descriptorII}
+                  onValueChange={(value) =>
+                    handleInputChange("descriptorII", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -535,7 +687,9 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="artist" className="font-bold">Artist</Label>
+                <Label htmlFor="artist" className="font-bold">
+                  Artist
+                </Label>
                 <Input
                   id="artist"
                   value={formData.artist}
@@ -544,11 +698,15 @@ export function StructuredPromptGenerator() {
                 />
               </div>
               <div>
-                <Label htmlFor="filmName" className="font-bold">Film Style</Label>
+                <Label htmlFor="filmName" className="font-bold">
+                  Film Style
+                </Label>
                 <Input
                   id="filmName"
                   value={formData.filmName}
-                  onChange={(e) => handleInputChange("filmName", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("filmName", e.target.value)
+                  }
                   placeholder="E.g., Film Noir"
                 />
               </div>
@@ -560,11 +718,18 @@ export function StructuredPromptGenerator() {
           {/* Additional Parameters */}
           <div>
             <Label className="font-bold uppercase">Additional Parameters</Label>
-            <CardDescription className="text-sm mb-2">Define additional parameters for your image</CardDescription>
+            <CardDescription className="text-sm mb-2">
+              Define additional parameters for your image
+            </CardDescription>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="font-bold">Aspect Ratio</Label>
-                <Select value={formData.aspectRatio} onValueChange={(value) => handleInputChange("aspectRatio", value)}>
+                <Select
+                  value={formData.aspectRatio}
+                  onValueChange={(value) =>
+                    handleInputChange("aspectRatio", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -597,11 +762,15 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="ignoreWords" className="font-bold">Ignore Words</Label>
+                <Label htmlFor="ignoreWords" className="font-bold">
+                  Ignore Words
+                </Label>
                 <Input
                   id="ignoreWords"
                   value={formData.ignoreWords}
-                  onChange={(e) => handleInputChange("ignoreWords", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("ignoreWords", e.target.value)
+                  }
                   placeholder="E.g., blur, text"
                 />
               </div>
@@ -611,22 +780,33 @@ export function StructuredPromptGenerator() {
                 <Checkbox
                   id="tile"
                   checked={formData.tile}
-                  onCheckedChange={(checked) => handleInputChange("tile", checked as boolean)}
+                  onCheckedChange={(checked) =>
+                    handleInputChange("tile", checked as boolean)
+                  }
                 />
-                <Label htmlFor="tile" className="font-bold">Tile</Label>
+                <Label htmlFor="tile" className="font-bold">
+                  Tile
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="styleRaw"
                   checked={formData.styleRaw}
-                  onCheckedChange={(checked) => handleInputChange("styleRaw", checked as boolean)}
+                  onCheckedChange={(checked) =>
+                    handleInputChange("styleRaw", checked as boolean)
+                  }
                 />
-                <Label htmlFor="styleRaw" className="font-bold">Style Raw</Label>
+                <Label htmlFor="styleRaw" className="font-bold">
+                  Style Raw
+                </Label>
               </div>
             </div>
           </div>
 
-          <Button onClick={generatePrompt} className="w-full bg-purple-500 hover:bg-purple-600">
+          <Button
+            onClick={generatePrompt}
+            className="w-full bg-purple-500 hover:bg-purple-600"
+          >
             Generate Prompt
           </Button>
 
@@ -637,7 +817,11 @@ export function StructuredPromptGenerator() {
                 onChange={(e) => setGeneratedPrompt(e.target.value)}
                 className="min-h-[100px]"
               />
-              <Button onClick={copyToClipboard} variant="outline" className="w-full">
+              <Button
+                onClick={copyToClipboard}
+                variant="outline"
+                className="w-full"
+              >
                 <ClipboardCopy className="w-4 h-4 mr-2" />
                 {copied ? "Copied!" : "Copy to Clipboard"}
               </Button>
@@ -646,5 +830,5 @@ export function StructuredPromptGenerator() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
