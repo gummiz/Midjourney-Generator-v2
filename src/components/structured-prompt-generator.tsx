@@ -136,7 +136,7 @@ export function StructuredPromptGenerator() {
     <Card className="w-full max-w-3xl mx-auto">
      <CardHeader>
         <CardTitle className="text-2xl font-normal text-gray-600">
-          Midjourney Prompt Generator{" "}
+          Midjourney Prompt Helper{" "}
         </CardTitle>
         <CardDescription>
 
