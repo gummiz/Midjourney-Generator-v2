@@ -151,7 +151,7 @@ export function StructuredPromptGenerator() {
         <div className="space-y-4">
           {/* MEDIUM */}
           <div>
-            <Label>MEDIUM</Label>
+            <Label className="font-bold">MEDIUM</Label>
             <CardDescription className="text-sm mb-2">Choose the artistic medium for your image</CardDescription>
             <Select value={formData.medium} onValueChange={(value) => handleInputChange("medium", value)}>
               <SelectTrigger>
@@ -185,7 +185,7 @@ export function StructuredPromptGenerator() {
 
           {/* SUBJECT */}
           <div>
-            <Label htmlFor="subject">SUBJECT</Label>
+            <Label htmlFor="subject" className="font-bold">SUBJECT</Label>
             <CardDescription className="text-sm mb-2">Describe the main focus of your image</CardDescription>
             <Textarea
               id="subject"
@@ -199,7 +199,7 @@ export function StructuredPromptGenerator() {
 
           {/* ENVIRONMENT */}
           <div>
-            <Label htmlFor="environment">ENVIRONMENT</Label>
+            <Label htmlFor="environment" className="font-bold">ENVIRONMENT</Label>
             <CardDescription className="text-sm mb-2">Describe the setting or background</CardDescription>
             <Textarea
               id="environment"
@@ -213,11 +213,11 @@ export function StructuredPromptGenerator() {
 
           {/* COMPOSITION */}
           <div>
-            <Label>COMPOSITION</Label>
+            <Label className="font-bold">COMPOSITION</Label>
             <CardDescription className="text-sm mb-2">Define the visual arrangement and technical aspects</CardDescription>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>View</Label>
+                <Label className="font-bold">View</Label>
                 <Select value={formData.view} onValueChange={(value) => handleInputChange("view", value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -247,7 +247,7 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label>Camera</Label>
+                <Label className="font-bold">Camera</Label>
                 <Select value={formData.camera} onValueChange={(value) => handleInputChange("camera", value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -277,7 +277,7 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label>Lens</Label>
+                <Label className="font-bold">Lens</Label>
                 <Select value={formData.lens} onValueChange={(value) => handleInputChange("lens", value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -307,7 +307,7 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label>Lighting</Label>
+                <Label className="font-bold">Lighting</Label>
                 <Select value={formData.lighting} onValueChange={(value) => handleInputChange("lighting", value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -343,11 +343,11 @@ export function StructuredPromptGenerator() {
 
           {/* STYLE */}
           <div>
-            <Label>STYLE</Label>
+            <Label className="font-bold">STYLE</Label>
             <CardDescription className="text-sm mb-2">Define the artistic style and mood</CardDescription>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Descriptor I</Label>
+                <Label className="font-bold">Descriptor I</Label>
                 <Select value={formData.descriptorI} onValueChange={(value) => handleInputChange("descriptorI", value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -373,7 +373,7 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label>Descriptor II</Label>
+                <Label className="font-bold">Descriptor II</Label>
                 <Select value={formData.descriptorII} onValueChange={(value) => handleInputChange("descriptorII", value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -399,7 +399,7 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="artist">Artist</Label>
+                <Label htmlFor="artist" className="font-bold">Artist</Label>
                 <Input
                   id="artist"
                   value={formData.artist}
@@ -408,7 +408,7 @@ export function StructuredPromptGenerator() {
                 />
               </div>
               <div>
-                <Label htmlFor="filmName">Film Style</Label>
+                <Label htmlFor="filmName" className="font-bold">Film Style</Label>
                 <Input
                   id="filmName"
                   value={formData.filmName}
@@ -423,10 +423,10 @@ export function StructuredPromptGenerator() {
 
           {/* Additional Parameters */}
           <div>
-            <Label>Additional Parameters</Label>
+            <Label className="font-bold">Additional Parameters</Label>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Aspect Ratio</Label>
+                <Label className="font-bold">Aspect Ratio</Label>
                 <Select value={formData.aspectRatio} onValueChange={(value) => handleInputChange("aspectRatio", value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -445,7 +445,7 @@ export function StructuredPromptGenerator() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="ignoreWords">Ignore Words</Label>
+                <Label htmlFor="ignoreWords" className="font-bold">Ignore Words</Label>
                 <Input
                   id="ignoreWords"
                   value={formData.ignoreWords}
@@ -461,7 +461,7 @@ export function StructuredPromptGenerator() {
                   checked={formData.tile}
                   onCheckedChange={(checked) => handleInputChange("tile", checked as boolean)}
                 />
-                <Label htmlFor="tile">Tile</Label>
+                <Label htmlFor="tile" className="font-bold">Tile</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -469,7 +469,7 @@ export function StructuredPromptGenerator() {
                   checked={formData.styleRaw}
                   onCheckedChange={(checked) => handleInputChange("styleRaw", checked as boolean)}
                 />
-                <Label htmlFor="styleRaw">Style Raw</Label>
+                <Label htmlFor="styleRaw" className="font-bold">Style Raw</Label>
               </div>
             </div>
           </div>
