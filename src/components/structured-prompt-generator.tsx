@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
@@ -158,25 +158,55 @@ export function StructuredPromptGenerator() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Digital Art">Digital Art</SelectItem>
-                <SelectItem value="Oil Painting">Oil Painting</SelectItem>
-                <SelectItem value="Watercolor">Watercolor</SelectItem>
-                <SelectItem value="Photography">Photography</SelectItem>
-                <SelectItem value="3D Render">3D Render</SelectItem>
-                <SelectItem value="Pencil Sketch">Pencil Sketch</SelectItem>
-                <SelectItem value="Vector Art">Vector Art</SelectItem>
-                <SelectItem value="Cinematic Portrait">Cinematic Portrait</SelectItem>
-                <SelectItem value="Pixel Art">Pixel Art</SelectItem>
-                <SelectItem value="Comic Style">Comic Style</SelectItem>
-                <SelectItem value="Concept Art">Concept Art</SelectItem>
-                <SelectItem value="Character Design">Character Design</SelectItem>
-                <SelectItem value="Fantasy Art">Fantasy Art</SelectItem>
-                <SelectItem value="Sci-fi Art">Sci-fi Art</SelectItem>
-                <SelectItem value="Abstract Art">Abstract Art</SelectItem>
-                <SelectItem value="Minimalist">Minimalist</SelectItem>
-                <SelectItem value="Surrealism">Surrealism</SelectItem>
-                <SelectItem value="Pop Art">Pop Art</SelectItem>
-                <SelectItem value="Impressionism">Impressionism</SelectItem>
+                <SelectGroup className="pb-2">
+                  <SelectLabel>Basic</SelectLabel>
+                  <SelectItem value="None">None</SelectItem>
+                  <SelectItem value="Digital Art">Digital Art</SelectItem>
+                  <SelectItem value="Photography">Photography</SelectItem>
+                  <SelectItem value="Film Still">Film Still</SelectItem>
+                  <SelectItem value="Cinematic Portrait">Cinematic Portrait</SelectItem>
+                  <SelectItem value="3D Render">3D Render</SelectItem>
+                </SelectGroup>
+
+                <SelectGroup className="pb-2">
+                  <SelectLabel>Traditional Art</SelectLabel>
+                  <SelectItem value="Oil Painting">Oil Painting</SelectItem>
+                  <SelectItem value="Watercolor">Watercolor</SelectItem>
+                  <SelectItem value="Ink Drawing">Ink Drawing</SelectItem>
+                  <SelectItem value="Pencil Drawing">Pencil Drawing</SelectItem>
+                  <SelectItem value="Charcoal Drawing">Charcoal Drawing</SelectItem>
+                  <SelectItem value="Pastel">Pastel</SelectItem>
+                </SelectGroup>
+
+                <SelectGroup className="pb-2">
+                  <SelectLabel>Digital Styles</SelectLabel>
+                  <SelectItem value="Vector Art">Vector Art</SelectItem>
+                  <SelectItem value="Pixel Art">Pixel Art</SelectItem>
+                  <SelectItem value="Comic Style">Comic Style</SelectItem>
+                </SelectGroup>
+
+                <SelectGroup className="pb-2">
+                  <SelectLabel>Art Movements</SelectLabel>
+                  <SelectItem value="Art Deco">Art Deco</SelectItem>
+                  <SelectItem value="Art Nouveau">Art Nouveau</SelectItem>
+                  <SelectItem value="Baroque">Baroque</SelectItem>
+                  <SelectItem value="Bauhaus">Bauhaus</SelectItem>
+                  <SelectItem value="Cubism">Cubism</SelectItem>
+                  <SelectItem value="Expressionism">Expressionism</SelectItem>
+                  <SelectItem value="Impressionism">Impressionism</SelectItem>
+                  <SelectItem value="Minimalism">Minimalism</SelectItem>
+                  <SelectItem value="Pop Art">Pop Art</SelectItem>
+                  <SelectItem value="Surrealism">Surrealism</SelectItem>
+                  <SelectItem value="Street Art">Street Art</SelectItem>
+                  <SelectItem value="Ukiyo-e">Ukiyo-e</SelectItem>
+                </SelectGroup>
+
+                <SelectGroup className="pb-2">
+                  <SelectLabel>Decorative Arts</SelectLabel>
+                  <SelectItem value="Stained Glass">Stained Glass</SelectItem>
+                  <SelectItem value="Mosaic">Mosaic</SelectItem>
+                  <SelectItem value="Collage">Collage</SelectItem>
+                </SelectGroup>
               </SelectContent>
             </Select>
           </div>
@@ -223,26 +253,45 @@ export function StructuredPromptGenerator() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="Close-up">Close-up</SelectItem>
-                    <SelectItem value="Wide angle">Wide angle</SelectItem>
-                    <SelectItem value="Aerial view">Aerial view</SelectItem>
-                    <SelectItem value="Bird's eye view">Bird's eye view</SelectItem>
-                    <SelectItem value="Shallow depth of field">Shallow depth of field</SelectItem>
-                    <SelectItem value="Worm's eye view">Worm's eye view</SelectItem>
-                    <SelectItem value="Dutch angle">Dutch angle</SelectItem>
-                    <SelectItem value="Panoramic">Panoramic</SelectItem>
-                    <SelectItem value="First person">First person</SelectItem>
-                    <SelectItem value="Third person">Third person</SelectItem>
-                    <SelectItem value="Over the shoulder">Over the shoulder</SelectItem>
-                    <SelectItem value="Profile view">Profile view</SelectItem>
-                    <SelectItem value="Front view">Front view</SelectItem>
-                    <SelectItem value="Back view">Back view</SelectItem>
-                    <SelectItem value="Three-quarter view">Three-quarter view</SelectItem>
-                    <SelectItem value="Isometric">Isometric</SelectItem>
-                    <SelectItem value="Macro">Macro</SelectItem>
-                    <SelectItem value="Telephoto">Telephoto</SelectItem>
-                    <SelectItem value="Fish eye">Fish eye</SelectItem>
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Basic</SelectLabel>
+                      <SelectItem value="None">None</SelectItem>
+                      <SelectItem value="Front view">Front view</SelectItem>
+                      <SelectItem value="Back view">Back view</SelectItem>
+                      <SelectItem value="Profile view">Profile view</SelectItem>
+                      <SelectItem value="Three-quarter view">Three-quarter view</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Distance</SelectLabel>
+                      <SelectItem value="Close-up">Close-up</SelectItem>
+                      <SelectItem value="Wide angle">Wide angle</SelectItem>
+                      <SelectItem value="Macro">Macro</SelectItem>
+                      <SelectItem value="Telephoto">Telephoto</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Perspective</SelectLabel>
+                      <SelectItem value="Aerial view">Aerial view</SelectItem>
+                      <SelectItem value="Bird's eye view">Bird&apos;s eye view</SelectItem>
+                      <SelectItem value="Worm's eye view">Worm&apos;s eye view</SelectItem>
+                      <SelectItem value="First person">First person</SelectItem>
+                      <SelectItem value="Third person">Third person</SelectItem>
+                      <SelectItem value="Over the shoulder">Over the shoulder</SelectItem>
+                      <SelectItem value="Isometric">Isometric</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Special Effects</SelectLabel>
+                      <SelectItem value="Shallow depth of field">Shallow depth of field</SelectItem>
+                      <SelectItem value="Dutch angle">Dutch angle</SelectItem>
+                      <SelectItem value="Panoramic">Panoramic</SelectItem>
+                      <SelectItem value="Fish eye">Fish eye</SelectItem>
+                      <SelectItem value="Tilt shift">Tilt shift</SelectItem>
+                      <SelectItem value="Double exposure">Double exposure</SelectItem>
+                      <SelectItem value="Motion blur">Motion blur</SelectItem>
+                      <SelectItem value="Long exposure">Long exposure</SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
@@ -253,26 +302,33 @@ export function StructuredPromptGenerator() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="Canon EOS R5">Canon EOS R5</SelectItem>
-                    <SelectItem value="Sony A7R IV">Sony A7R IV</SelectItem>
-                    <SelectItem value="Nikon Z9">Nikon Z9</SelectItem>
-                    <SelectItem value="Fujifilm GFX 100S">Fujifilm GFX 100S</SelectItem>
-                    <SelectItem value="Hasselblad X2D">Hasselblad X2D</SelectItem>
-                    <SelectItem value="Leica M11">Leica M11</SelectItem>
-                    <SelectItem value="Phase One IQ4">Phase One IQ4</SelectItem>
-                    <SelectItem value="Canon 5D Mark IV">Canon 5D Mark IV</SelectItem>
-                    <SelectItem value="Sony A1">Sony A1</SelectItem>
-                    <SelectItem value="Nikon D850">Nikon D850</SelectItem>
-                    <SelectItem value="Fujifilm X-T4">Fujifilm X-T4</SelectItem>
-                    <SelectItem value="Panasonic S1R">Panasonic S1R</SelectItem>
-                    <SelectItem value="Olympus OM-1">Olympus OM-1</SelectItem>
-                    <SelectItem value="RED V-Raptor">RED V-Raptor</SelectItem>
-                    <SelectItem value="ARRI Alexa Mini">ARRI Alexa Mini</SelectItem>
-                    <SelectItem value="Blackmagic URSA">Blackmagic URSA</SelectItem>
-                    <SelectItem value="Canon C70">Canon C70</SelectItem>
-                    <SelectItem value="Sony FX9">Sony FX9</SelectItem>
-                    <SelectItem value="RED Komodo">RED Komodo</SelectItem>
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Still Cameras</SelectLabel>
+                      <SelectItem value="None">None</SelectItem>
+                      <SelectItem value="Canon EOS R5">Canon EOS R5</SelectItem>
+                      <SelectItem value="Sony A7R IV">Sony A7R IV</SelectItem>
+                      <SelectItem value="Nikon Z9">Nikon Z9</SelectItem>
+                      <SelectItem value="Fujifilm GFX 100S">Fujifilm GFX 100S</SelectItem>
+                      <SelectItem value="Hasselblad X2D">Hasselblad X2D</SelectItem>
+                      <SelectItem value="Leica M11">Leica M11</SelectItem>
+                      <SelectItem value="Phase One IQ4">Phase One IQ4</SelectItem>
+                      <SelectItem value="Canon 5D Mark IV">Canon 5D Mark IV</SelectItem>
+                      <SelectItem value="Sony A1">Sony A1</SelectItem>
+                      <SelectItem value="Nikon D850">Nikon D850</SelectItem>
+                      <SelectItem value="Fujifilm X-T4">Fujifilm X-T4</SelectItem>
+                      <SelectItem value="Panasonic S1R">Panasonic S1R</SelectItem>
+                      <SelectItem value="Olympus OM-1">Olympus OM-1</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Cinema Cameras</SelectLabel>
+                      <SelectItem value="RED V-Raptor">RED V-Raptor</SelectItem>
+                      <SelectItem value="ARRI Alexa Mini">ARRI Alexa Mini</SelectItem>
+                      <SelectItem value="Blackmagic URSA">Blackmagic URSA</SelectItem>
+                      <SelectItem value="Canon C70">Canon C70</SelectItem>
+                      <SelectItem value="Sony FX9">Sony FX9</SelectItem>
+                      <SelectItem value="RED Komodo">RED Komodo</SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
@@ -283,26 +339,36 @@ export function StructuredPromptGenerator() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="24mm f/1.4">24mm f/1.4</SelectItem>
-                    <SelectItem value="50mm f/1.2">50mm f/1.2</SelectItem>
-                    <SelectItem value="85mm f/1.4">85mm f/1.4</SelectItem>
-                    <SelectItem value="35mm f/1.4">35mm f/1.4</SelectItem>
-                    <SelectItem value="135mm f/1.8">135mm f/1.8</SelectItem>
-                    <SelectItem value="14-24mm f/2.8">14-24mm f/2.8</SelectItem>
-                    <SelectItem value="24-70mm f/2.8">24-70mm f/2.8</SelectItem>
-                    <SelectItem value="70-200mm f/2.8">70-200mm f/2.8</SelectItem>
-                    <SelectItem value="100-400mm f/4.5-5.6">100-400mm f/4.5-5.6</SelectItem>
-                    <SelectItem value="16mm f/2.8">16mm f/2.8</SelectItem>
-                    <SelectItem value="20mm f/1.8">20mm f/1.8</SelectItem>
-                    <SelectItem value="28mm f/1.8">28mm f/1.8</SelectItem>
-                    <SelectItem value="40mm f/2">40mm f/2</SelectItem>
-                    <SelectItem value="90mm f/2.8">90mm f/2.8</SelectItem>
-                    <SelectItem value="100mm f/2.8 Macro">100mm f/2.8 Macro</SelectItem>
-                    <SelectItem value="200mm f/2">200mm f/2</SelectItem>
-                    <SelectItem value="300mm f/2.8">300mm f/2.8</SelectItem>
-                    <SelectItem value="400mm f/2.8">400mm f/2.8</SelectItem>
-                    <SelectItem value="600mm f/4">600mm f/4</SelectItem>
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Prime Lenses</SelectLabel>
+                      <SelectItem value="None">None</SelectItem>
+                      <SelectItem value="16mm f/2.8">16mm f/2.8</SelectItem>
+                      <SelectItem value="20mm f/1.8">20mm f/1.8</SelectItem>
+                      <SelectItem value="24mm f/1.4">24mm f/1.4</SelectItem>
+                      <SelectItem value="28mm f/1.8">28mm f/1.8</SelectItem>
+                      <SelectItem value="35mm f/1.4">35mm f/1.4</SelectItem>
+                      <SelectItem value="40mm f/2">40mm f/2</SelectItem>
+                      <SelectItem value="50mm f/1.2">50mm f/1.2</SelectItem>
+                      <SelectItem value="85mm f/1.4">85mm f/1.4</SelectItem>
+                      <SelectItem value="90mm f/2.8">90mm f/2.8</SelectItem>
+                      <SelectItem value="100mm f/2.8 Macro">100mm f/2.8 Macro</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Zoom Lenses</SelectLabel>
+                      <SelectItem value="14-24mm f/2.8">14-24mm f/2.8</SelectItem>
+                      <SelectItem value="24-70mm f/2.8">24-70mm f/2.8</SelectItem>
+                      <SelectItem value="70-200mm f/2.8">70-200mm f/2.8</SelectItem>
+                      <SelectItem value="100-400mm f/4.5-5.6">100-400mm f/4.5-5.6</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Super Telephoto</SelectLabel>
+                      <SelectItem value="200mm f/2">200mm f/2</SelectItem>
+                      <SelectItem value="300mm f/2.8">300mm f/2.8</SelectItem>
+                      <SelectItem value="400mm f/2.8">400mm f/2.8</SelectItem>
+                      <SelectItem value="600mm f/4">600mm f/4</SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
@@ -313,26 +379,48 @@ export function StructuredPromptGenerator() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="Natural light">Natural light</SelectItem>
-                    <SelectItem value="Studio lighting">Studio lighting</SelectItem>
-                    <SelectItem value="Dramatic lighting">Dramatic lighting</SelectItem>
-                    <SelectItem value="Cinematic lighting">Cinematic lighting</SelectItem>
-                    <SelectItem value="Rembrandt lighting">Rembrandt lighting</SelectItem>
-                    <SelectItem value="Split lighting">Split lighting</SelectItem>
-                    <SelectItem value="Butterfly lighting">Butterfly lighting</SelectItem>
-                    <SelectItem value="Loop lighting">Loop lighting</SelectItem>
-                    <SelectItem value="Broad lighting">Broad lighting</SelectItem>
-                    <SelectItem value="Short lighting">Short lighting</SelectItem>
-                    <SelectItem value="Rim lighting">Rim lighting</SelectItem>
-                    <SelectItem value="Backlight">Backlight</SelectItem>
-                    <SelectItem value="High key lighting">High key lighting</SelectItem>
-                    <SelectItem value="Low key lighting">Low key lighting</SelectItem>
-                    <SelectItem value="Golden hour">Golden hour</SelectItem>
-                    <SelectItem value="Blue hour">Blue hour</SelectItem>
-                    <SelectItem value="Moonlight">Moonlight</SelectItem>
-                    <SelectItem value="Soft lighting">Soft lighting</SelectItem>
-                    <SelectItem value="Hard lighting">Hard lighting</SelectItem>
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Basic</SelectLabel>
+                      <SelectItem value="None">None</SelectItem>
+                      <SelectItem value="Natural light">Natural light</SelectItem>
+                      <SelectItem value="Soft lighting">Soft lighting</SelectItem>
+                      <SelectItem value="Hard lighting">Hard lighting</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Studio Techniques</SelectLabel>
+                      <SelectItem value="Studio lighting">Studio lighting</SelectItem>
+                      <SelectItem value="Dramatic lighting">Dramatic lighting</SelectItem>
+                      <SelectItem value="Cinematic lighting">Cinematic lighting</SelectItem>
+                      <SelectItem value="High key lighting">High key lighting</SelectItem>
+                      <SelectItem value="Low key lighting">Low key lighting</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Portrait Lighting</SelectLabel>
+                      <SelectItem value="Rembrandt lighting">Rembrandt lighting</SelectItem>
+                      <SelectItem value="Split lighting">Split lighting</SelectItem>
+                      <SelectItem value="Butterfly lighting">Butterfly lighting</SelectItem>
+                      <SelectItem value="Loop lighting">Loop lighting</SelectItem>
+                      <SelectItem value="Broad lighting">Broad lighting</SelectItem>
+                      <SelectItem value="Short lighting">Short lighting</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Natural Conditions</SelectLabel>
+                      <SelectItem value="Golden hour">Golden hour</SelectItem>
+                      <SelectItem value="Blue hour">Blue hour</SelectItem>
+                      <SelectItem value="Moonlight">Moonlight</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Special Effects</SelectLabel>
+                      <SelectItem value="Rim lighting">Rim lighting</SelectItem>
+                      <SelectItem value="Backlight">Backlight</SelectItem>
+                      <SelectItem value="Volumetric lighting">Volumetric lighting</SelectItem>
+                      <SelectItem value="Practical lighting">Practical lighting</SelectItem>
+                      <SelectItem value="Accent lighting">Accent lighting</SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
@@ -353,22 +441,46 @@ export function StructuredPromptGenerator() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="Vibrant">Vibrant</SelectItem>
-                    <SelectItem value="Moody">Moody</SelectItem>
-                    <SelectItem value="Ethereal">Ethereal</SelectItem>
-                    <SelectItem value="Minimalistic">Minimalistic</SelectItem>
-                    <SelectItem value="Dramatic">Dramatic</SelectItem>
-                    <SelectItem value="Serene">Serene</SelectItem>
-                    <SelectItem value="Mysterious">Mysterious</SelectItem>
-                    <SelectItem value="Whimsical">Whimsical</SelectItem>
-                    <SelectItem value="Elegant">Elegant</SelectItem>
-                    <SelectItem value="Rustic">Rustic</SelectItem>
-                    <SelectItem value="Chaotic">Chaotic</SelectItem>
-                    <SelectItem value="Dynamic">Dynamic</SelectItem>
-                    <SelectItem value="Peaceful">Peaceful</SelectItem>
-                    <SelectItem value="Energetic">Energetic</SelectItem>
-                    <SelectItem value="Melancholic">Melancholic</SelectItem>
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Basic Moods</SelectLabel>
+                      <SelectItem value="None">None</SelectItem>
+                      <SelectItem value="Vibrant">Vibrant</SelectItem>
+                      <SelectItem value="Moody">Moody</SelectItem>
+                      <SelectItem value="Dramatic">Dramatic</SelectItem>
+                      <SelectItem value="Energetic">Energetic</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Peaceful Moods</SelectLabel>
+                      <SelectItem value="Serene">Serene</SelectItem>
+                      <SelectItem value="Peaceful">Peaceful</SelectItem>
+                      <SelectItem value="Minimalistic">Minimalistic</SelectItem>
+                      <SelectItem value="Ethereal">Ethereal</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Atmospheric Moods</SelectLabel>
+                      <SelectItem value="Mysterious">Mysterious</SelectItem>
+                      <SelectItem value="Whimsical">Whimsical</SelectItem>
+                      <SelectItem value="Melancholic">Melancholic</SelectItem>
+                      <SelectItem value="Elegant">Elegant</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Dynamic Moods</SelectLabel>
+                      <SelectItem value="Rustic">Rustic</SelectItem>
+                      <SelectItem value="Chaotic">Chaotic</SelectItem>
+                      <SelectItem value="Dynamic">Dynamic</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Additional Moods</SelectLabel>
+                      <SelectItem value="Nostalgic">Nostalgic</SelectItem>
+                      <SelectItem value="Playful">Playful</SelectItem>
+                      <SelectItem value="Mystical">Mystical</SelectItem>
+                      <SelectItem value="Tranquil">Tranquil</SelectItem>
+                      <SelectItem value="Bold">Bold</SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
@@ -379,22 +491,46 @@ export function StructuredPromptGenerator() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="Surreal">Surreal</SelectItem>
-                    <SelectItem value="Vintage">Vintage</SelectItem>
-                    <SelectItem value="Futuristic">Futuristic</SelectItem>
-                    <SelectItem value="Dreamy">Dreamy</SelectItem>
-                    <SelectItem value="Dramatic">Dramatic</SelectItem>
-                    <SelectItem value="Serene">Serene</SelectItem>
-                    <SelectItem value="Mysterious">Mysterious</SelectItem>
-                    <SelectItem value="Whimsical">Whimsical</SelectItem>
-                    <SelectItem value="Elegant">Elegant</SelectItem>
-                    <SelectItem value="Rustic">Rustic</SelectItem>
-                    <SelectItem value="Chaotic">Chaotic</SelectItem>
-                    <SelectItem value="Dynamic">Dynamic</SelectItem>
-                    <SelectItem value="Peaceful">Peaceful</SelectItem>
-                    <SelectItem value="Energetic">Energetic</SelectItem>
-                    <SelectItem value="Melancholic">Melancholic</SelectItem>
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Basic Moods</SelectLabel>
+                      <SelectItem value="None">None</SelectItem>
+                      <SelectItem value="Vibrant">Vibrant</SelectItem>
+                      <SelectItem value="Moody">Moody</SelectItem>
+                      <SelectItem value="Dramatic">Dramatic</SelectItem>
+                      <SelectItem value="Energetic">Energetic</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Peaceful Moods</SelectLabel>
+                      <SelectItem value="Serene">Serene</SelectItem>
+                      <SelectItem value="Peaceful">Peaceful</SelectItem>
+                      <SelectItem value="Minimalistic">Minimalistic</SelectItem>
+                      <SelectItem value="Ethereal">Ethereal</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Atmospheric Moods</SelectLabel>
+                      <SelectItem value="Mysterious">Mysterious</SelectItem>
+                      <SelectItem value="Whimsical">Whimsical</SelectItem>
+                      <SelectItem value="Melancholic">Melancholic</SelectItem>
+                      <SelectItem value="Elegant">Elegant</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Dynamic Moods</SelectLabel>
+                      <SelectItem value="Rustic">Rustic</SelectItem>
+                      <SelectItem value="Chaotic">Chaotic</SelectItem>
+                      <SelectItem value="Dynamic">Dynamic</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Additional Moods</SelectLabel>
+                      <SelectItem value="Nostalgic">Nostalgic</SelectItem>
+                      <SelectItem value="Playful">Playful</SelectItem>
+                      <SelectItem value="Mystical">Mystical</SelectItem>
+                      <SelectItem value="Tranquil">Tranquil</SelectItem>
+                      <SelectItem value="Bold">Bold</SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
@@ -423,7 +559,8 @@ export function StructuredPromptGenerator() {
 
           {/* Additional Parameters */}
           <div>
-            <Label className="font-bold">Additional Parameters</Label>
+            <Label className="font-bold uppercase">Additional Parameters</Label>
+            <CardDescription className="text-sm mb-2">Define additional parameters for your image</CardDescription>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="font-bold">Aspect Ratio</Label>
@@ -432,15 +569,30 @@ export function StructuredPromptGenerator() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="1:1">Square (1:1)</SelectItem>
-                    <SelectItem value="4:3">4:3</SelectItem>
-                    <SelectItem value="16:9">Landscape (16:9)</SelectItem>
-                    <SelectItem value="3:2">Landscape (3:2)</SelectItem>
-                    <SelectItem value="2:3">Portrait (2:3)</SelectItem>
-                    <SelectItem value="9:16">Portrait (9:16)</SelectItem>
-                    <SelectItem value="5:7">Portrait (5:7)</SelectItem>
-                    <SelectItem value="1:2">Portrait (1:2)</SelectItem>
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Default</SelectLabel>
+                      <SelectItem value="None">None</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Square</SelectLabel>
+                      <SelectItem value="1:1">1:1</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Landscape</SelectLabel>
+                      <SelectItem value="4:3">4:3</SelectItem>
+                      <SelectItem value="16:9">16:9</SelectItem>
+                      <SelectItem value="3:2">3:2</SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup className="pb-2">
+                      <SelectLabel>Portrait</SelectLabel>
+                      <SelectItem value="2:3">2:3</SelectItem>
+                      <SelectItem value="9:16">9:16</SelectItem>
+                      <SelectItem value="5:7">5:7</SelectItem>
+                      <SelectItem value="1:2">1:2</SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
