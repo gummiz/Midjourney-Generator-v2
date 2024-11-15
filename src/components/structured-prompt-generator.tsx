@@ -731,7 +731,7 @@ export function StructuredPromptGenerator() {
                           <SelectGroup className="pb-2">
                             <SelectLabel>Modern Art</SelectLabel>
                             <SelectItem value="Frida Kahlo">Frida Kahlo</SelectItem>
-                            <SelectItem value="Georgia O'Keeffe">Georgia O'Keeffe</SelectItem>
+                            <SelectItem value="Georgia O'Keeffe">Georgia O&apos;Keeffe</SelectItem>
                             <SelectItem value="Pablo Picasso">Pablo Picasso</SelectItem>
                             <SelectItem value="Salvador Dalí">Salvador Dalí</SelectItem>
                             <SelectItem value="Wassily Kandinsky">Wassily Kandinsky</SelectItem>
@@ -851,7 +851,7 @@ export function StructuredPromptGenerator() {
 
                           <SelectGroup className="pb-2">
                             <SelectLabel>Fantasy</SelectLabel>
-                            <SelectItem value="Pan's Labyrinth">Pan's Labyrinth</SelectItem>
+                            <SelectItem value="Pan's Labyrinth">Pan&apos;s Labyrinth</SelectItem>
                             <SelectItem value="The Lord of the Rings">The Lord of the Rings</SelectItem>
                             <SelectItem value="The Dark Crystal">The Dark Crystal</SelectItem>
                             <SelectItem value="The NeverEnding Story">The NeverEnding Story</SelectItem>
@@ -868,7 +868,7 @@ export function StructuredPromptGenerator() {
                             <SelectLabel>Drama</SelectLabel>
                             <SelectItem value="Citizen Kane">Citizen Kane</SelectItem>
                             <SelectItem value="The Godfather">The Godfather</SelectItem>
-                            <SelectItem value="Schindler's List">Schindler's List</SelectItem>
+                            <SelectItem value="Schindler's List">Schindler&apos;s List</SelectItem>
                             <SelectItem value="Lawrence of Arabia">Lawrence of Arabia</SelectItem>
                           </SelectGroup>
 
