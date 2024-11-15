@@ -48,6 +48,8 @@ export function StructuredPromptGenerator() {
     styleRandom: boolean;
     timeEpoch: string;
     styleReferenceUrl: string;
+    customArtist: boolean;
+    customFilm: boolean;
   };
 
   const [formData, setFormData] = useState<FormData>({
@@ -73,6 +75,8 @@ export function StructuredPromptGenerator() {
     styleRandom: false,
     timeEpoch: "None",
     styleReferenceUrl: "",
+    customArtist: false,
+    customFilm: false,
   });
 
   const [generatedPrompt, setGeneratedPrompt] = useState("");
@@ -671,202 +675,242 @@ export function StructuredPromptGenerator() {
                     </Select>
                   </div>
                   <div>
-                    <Label className="font-bold">Artist</Label>
-                    <Select
-                      value={formData.artist}
-                      onValueChange={(value) => handleInputChange("artist", value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>None</SelectLabel>
-                          <SelectItem value="None">None</SelectItem>
-                        </SelectGroup>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Label className="font-bold">Artist</Label>
+                      <Checkbox
+                        id="customArtist"
+                        checked={formData.customArtist}
+                        onCheckedChange={(checked) =>
+                          handleInputChange("customArtist", checked as boolean)
+                        }
+                      />
+                      <Label htmlFor="customArtist" className="text-sm">
+                        Custom
+                      </Label>
+                    </div>
+                    {formData.customArtist ? (
+                      <Input
+                        value={formData.artist}
+                        onChange={(e) => handleInputChange("artist", e.target.value)}
+                        placeholder="Enter custom artist name"
+                      />
+                    ) : (
+                      <Select
+                        value={formData.artist}
+                        onValueChange={(value) => handleInputChange("artist", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>None</SelectLabel>
+                            <SelectItem value="None">None</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Renaissance & Baroque</SelectLabel>
-                          <SelectItem value="Leonardo da Vinci">Leonardo da Vinci</SelectItem>
-                          <SelectItem value="Michelangelo">Michelangelo</SelectItem>
-                          <SelectItem value="Artemisia Gentileschi">Artemisia Gentileschi</SelectItem>
-                          <SelectItem value="Rembrandt">Rembrandt</SelectItem>
-                          <SelectItem value="Caravaggio">Caravaggio</SelectItem>
-                          <SelectItem value="Johannes Vermeer">Johannes Vermeer</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Renaissance & Baroque</SelectLabel>
+                            <SelectItem value="Leonardo da Vinci">Leonardo da Vinci</SelectItem>
+                            <SelectItem value="Michelangelo">Michelangelo</SelectItem>
+                            <SelectItem value="Artemisia Gentileschi">Artemisia Gentileschi</SelectItem>
+                            <SelectItem value="Rembrandt">Rembrandt</SelectItem>
+                            <SelectItem value="Caravaggio">Caravaggio</SelectItem>
+                            <SelectItem value="Johannes Vermeer">Johannes Vermeer</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Impressionism & Post-Impressionism</SelectLabel>
-                          <SelectItem value="Claude Monet">Claude Monet</SelectItem>
-                          <SelectItem value="Vincent van Gogh">Vincent van Gogh</SelectItem>
-                          <SelectItem value="Mary Cassatt">Mary Cassatt</SelectItem>
-                          <SelectItem value="Berthe Morisot">Berthe Morisot</SelectItem>
-                          <SelectItem value="Edgar Degas">Edgar Degas</SelectItem>
-                          <SelectItem value="Paul Cézanne">Paul Cézanne</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Impressionism & Post-Impressionism</SelectLabel>
+                            <SelectItem value="Claude Monet">Claude Monet</SelectItem>
+                            <SelectItem value="Vincent van Gogh">Vincent van Gogh</SelectItem>
+                            <SelectItem value="Mary Cassatt">Mary Cassatt</SelectItem>
+                            <SelectItem value="Berthe Morisot">Berthe Morisot</SelectItem>
+                            <SelectItem value="Edgar Degas">Edgar Degas</SelectItem>
+                            <SelectItem value="Paul Cézanne">Paul Cézanne</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Modern Art</SelectLabel>
-                          <SelectItem value="Frida Kahlo">Frida Kahlo</SelectItem>
-                          <SelectItem value="Georgia O'Keeffe">Georgia O'Keeffe</SelectItem>
-                          <SelectItem value="Pablo Picasso">Pablo Picasso</SelectItem>
-                          <SelectItem value="Salvador Dalí">Salvador Dalí</SelectItem>
-                          <SelectItem value="Wassily Kandinsky">Wassily Kandinsky</SelectItem>
-                          <SelectItem value="Henri Matisse">Henri Matisse</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Modern Art</SelectLabel>
+                            <SelectItem value="Frida Kahlo">Frida Kahlo</SelectItem>
+                            <SelectItem value="Georgia O'Keeffe">Georgia O'Keeffe</SelectItem>
+                            <SelectItem value="Pablo Picasso">Pablo Picasso</SelectItem>
+                            <SelectItem value="Salvador Dalí">Salvador Dalí</SelectItem>
+                            <SelectItem value="Wassily Kandinsky">Wassily Kandinsky</SelectItem>
+                            <SelectItem value="Henri Matisse">Henri Matisse</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Contemporary Masters</SelectLabel>
-                          <SelectItem value="Marina Abramović">Marina Abramović</SelectItem>
-                          <SelectItem value="Yayoi Kusama">Yayoi Kusama</SelectItem>
-                          <SelectItem value="Ai Weiwei">Ai Weiwei</SelectItem>
-                          <SelectItem value="Jeff Koons">Jeff Koons</SelectItem>
-                          <SelectItem value="Cindy Sherman">Cindy Sherman</SelectItem>
-                          <SelectItem value="Kehinde Wiley">Kehinde Wiley</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Contemporary Masters</SelectLabel>
+                            <SelectItem value="Marina Abramović">Marina Abramović</SelectItem>
+                            <SelectItem value="Yayoi Kusama">Yayoi Kusama</SelectItem>
+                            <SelectItem value="Ai Weiwei">Ai Weiwei</SelectItem>
+                            <SelectItem value="Jeff Koons">Jeff Koons</SelectItem>
+                            <SelectItem value="Cindy Sherman">Cindy Sherman</SelectItem>
+                            <SelectItem value="Kehinde Wiley">Kehinde Wiley</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Photography</SelectLabel>
-                          <SelectItem value="Annie Leibovitz">Annie Leibovitz</SelectItem>
-                          <SelectItem value="Dorothea Lange">Dorothea Lange</SelectItem>
-                          <SelectItem value="Ansel Adams">Ansel Adams</SelectItem>
-                          <SelectItem value="Vivian Maier">Vivian Maier</SelectItem>
-                          <SelectItem value="Henri Cartier-Bresson">Henri Cartier-Bresson</SelectItem>
-                          <SelectItem value="Diane Arbus">Diane Arbus</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Photography</SelectLabel>
+                            <SelectItem value="Annie Leibovitz">Annie Leibovitz</SelectItem>
+                            <SelectItem value="Dorothea Lange">Dorothea Lange</SelectItem>
+                            <SelectItem value="Ansel Adams">Ansel Adams</SelectItem>
+                            <SelectItem value="Vivian Maier">Vivian Maier</SelectItem>
+                            <SelectItem value="Henri Cartier-Bresson">Henri Cartier-Bresson</SelectItem>
+                            <SelectItem value="Diane Arbus">Diane Arbus</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Digital & Concept Artists</SelectLabel>
-                          <SelectItem value="Beeple">Beeple</SelectItem>
-                          <SelectItem value="Simon Stålenhag">Simon Stålenhag</SelectItem>
-                          <SelectItem value="Julie Bell">Julie Bell</SelectItem>
-                          <SelectItem value="James Jean">James Jean</SelectItem>
-                          <SelectItem value="Artgerm">Artgerm</SelectItem>
-                          <SelectItem value="Ross Tran">Ross Tran</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Digital & Concept Artists</SelectLabel>
+                            <SelectItem value="Beeple">Beeple</SelectItem>
+                            <SelectItem value="Simon Stålenhag">Simon Stålenhag</SelectItem>
+                            <SelectItem value="Julie Bell">Julie Bell</SelectItem>
+                            <SelectItem value="James Jean">James Jean</SelectItem>
+                            <SelectItem value="Artgerm">Artgerm</SelectItem>
+                            <SelectItem value="Ross Tran">Ross Tran</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Street Art</SelectLabel>
-                          <SelectItem value="Banksy">Banksy</SelectItem>
-                          <SelectItem value="Jean-Michel Basquiat">Jean-Michel Basquiat</SelectItem>
-                          <SelectItem value="Lady Pink">Lady Pink</SelectItem>
-                          <SelectItem value="KAWS">KAWS</SelectItem>
-                          <SelectItem value="Shepard Fairey">Shepard Fairey</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Street Art</SelectLabel>
+                            <SelectItem value="Banksy">Banksy</SelectItem>
+                            <SelectItem value="Jean-Michel Basquiat">Jean-Michel Basquiat</SelectItem>
+                            <SelectItem value="Lady Pink">Lady Pink</SelectItem>
+                            <SelectItem value="KAWS">KAWS</SelectItem>
+                            <SelectItem value="Shepard Fairey">Shepard Fairey</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Illustrators</SelectLabel>
-                          <SelectItem value="Hayao Miyazaki">Hayao Miyazaki</SelectItem>
-                          <SelectItem value="Tove Jansson">Tove Jansson</SelectItem>
-                          <SelectItem value="Maurice Sendak">Maurice Sendak</SelectItem>
-                          <SelectItem value="Beatrix Potter">Beatrix Potter</SelectItem>
-                          <SelectItem value="Norman Rockwell">Norman Rockwell</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Illustrators</SelectLabel>
+                            <SelectItem value="Hayao Miyazaki">Hayao Miyazaki</SelectItem>
+                            <SelectItem value="Tove Jansson">Tove Jansson</SelectItem>
+                            <SelectItem value="Maurice Sendak">Maurice Sendak</SelectItem>
+                            <SelectItem value="Beatrix Potter">Beatrix Potter</SelectItem>
+                            <SelectItem value="Norman Rockwell">Norman Rockwell</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
                   </div>
                   <div>
-                    <Label className="font-bold">Film Style</Label>
-                    <Select
-                      value={formData.filmName}
-                      onValueChange={(value) => handleInputChange("filmName", value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>None</SelectLabel>
-                          <SelectItem value="None">None</SelectItem>
-                        </SelectGroup>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Label className="font-bold">Film Style</Label>
+                      <Checkbox
+                        id="customFilm"
+                        checked={formData.customFilm}
+                        onCheckedChange={(checked) =>
+                          handleInputChange("customFilm", checked as boolean)
+                        }
+                      />
+                      <Label htmlFor="customFilm" className="text-sm">
+                        Custom
+                      </Label>
+                    </div>
+                    {formData.customFilm ? (
+                      <Input
+                        value={formData.filmName}
+                        onChange={(e) => handleInputChange("filmName", e.target.value)}
+                        placeholder="Enter custom film name"
+                      />
+                    ) : (
+                      <Select
+                        value={formData.filmName}
+                        onValueChange={(value) => handleInputChange("filmName", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>None</SelectLabel>
+                            <SelectItem value="None">None</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Film Noir</SelectLabel>
-                          <SelectItem value="The Maltese Falcon">The Maltese Falcon</SelectItem>
-                          <SelectItem value="Double Indemnity">Double Indemnity</SelectItem>
-                          <SelectItem value="Blade Runner">Blade Runner</SelectItem>
-                          <SelectItem value="Sin City">Sin City</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Film Noir</SelectLabel>
+                            <SelectItem value="The Maltese Falcon">The Maltese Falcon</SelectItem>
+                            <SelectItem value="Double Indemnity">Double Indemnity</SelectItem>
+                            <SelectItem value="Blade Runner">Blade Runner</SelectItem>
+                            <SelectItem value="Sin City">Sin City</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Science Fiction</SelectLabel>
-                          <SelectItem value="2001: A Space Odyssey">2001: A Space Odyssey</SelectItem>
-                          <SelectItem value="The Matrix">The Matrix</SelectItem>
-                          <SelectItem value="Alien">Alien</SelectItem>
-                          <SelectItem value="Metropolis">Metropolis</SelectItem>
-                          <SelectItem value="Dune">Dune</SelectItem>
-                          <SelectItem value="Tron">Tron</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Science Fiction</SelectLabel>
+                            <SelectItem value="2001: A Space Odyssey">2001: A Space Odyssey</SelectItem>
+                            <SelectItem value="The Matrix">The Matrix</SelectItem>
+                            <SelectItem value="Alien">Alien</SelectItem>
+                            <SelectItem value="Metropolis">Metropolis</SelectItem>
+                            <SelectItem value="Dune">Dune</SelectItem>
+                            <SelectItem value="Tron">Tron</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Horror</SelectLabel>
-                          <SelectItem value="The Shining">The Shining</SelectItem>
-                          <SelectItem value="Nosferatu">Nosferatu</SelectItem>
-                          <SelectItem value="A Nightmare on Elm Street">A Nightmare on Elm Street</SelectItem>
-                          <SelectItem value="The Cabinet of Dr. Caligari">The Cabinet of Dr. Caligari</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Horror</SelectLabel>
+                            <SelectItem value="The Shining">The Shining</SelectItem>
+                            <SelectItem value="Nosferatu">Nosferatu</SelectItem>
+                            <SelectItem value="A Nightmare on Elm Street">A Nightmare on Elm Street</SelectItem>
+                            <SelectItem value="The Cabinet of Dr. Caligari">The Cabinet of Dr. Caligari</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Fantasy</SelectLabel>
-                          <SelectItem value="Pan's Labyrinth">Pan's Labyrinth</SelectItem>
-                          <SelectItem value="The Lord of the Rings">The Lord of the Rings</SelectItem>
-                          <SelectItem value="The Dark Crystal">The Dark Crystal</SelectItem>
-                          <SelectItem value="The NeverEnding Story">The NeverEnding Story</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Fantasy</SelectLabel>
+                            <SelectItem value="Pan's Labyrinth">Pan's Labyrinth</SelectItem>
+                            <SelectItem value="The Lord of the Rings">The Lord of the Rings</SelectItem>
+                            <SelectItem value="The Dark Crystal">The Dark Crystal</SelectItem>
+                            <SelectItem value="The NeverEnding Story">The NeverEnding Story</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Western</SelectLabel>
-                          <SelectItem value="The Good, the Bad and the Ugly">The Good, the Bad and the Ugly</SelectItem>
-                          <SelectItem value="Once Upon a Time in the West">Once Upon a Time in the West</SelectItem>
-                          <SelectItem value="Django Unchained">Django Unchained</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Western</SelectLabel>
+                            <SelectItem value="The Good, the Bad and the Ugly">The Good, the Bad and the Ugly</SelectItem>
+                            <SelectItem value="Once Upon a Time in the West">Once Upon a Time in the West</SelectItem>
+                            <SelectItem value="Django Unchained">Django Unchained</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Drama</SelectLabel>
-                          <SelectItem value="Citizen Kane">Citizen Kane</SelectItem>
-                          <SelectItem value="The Godfather">The Godfather</SelectItem>
-                          <SelectItem value="Schindler's List">Schindler's List</SelectItem>
-                          <SelectItem value="Lawrence of Arabia">Lawrence of Arabia</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Drama</SelectLabel>
+                            <SelectItem value="Citizen Kane">Citizen Kane</SelectItem>
+                            <SelectItem value="The Godfather">The Godfather</SelectItem>
+                            <SelectItem value="Schindler's List">Schindler's List</SelectItem>
+                            <SelectItem value="Lawrence of Arabia">Lawrence of Arabia</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>French New Wave</SelectLabel>
-                          <SelectItem value="Breathless">Breathless</SelectItem>
-                          <SelectItem value="The 400 Blows">The 400 Blows</SelectItem>
-                          <SelectItem value="Jules and Jim">Jules and Jim</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>French New Wave</SelectLabel>
+                            <SelectItem value="Breathless">Breathless</SelectItem>
+                            <SelectItem value="The 400 Blows">The 400 Blows</SelectItem>
+                            <SelectItem value="Jules and Jim">Jules and Jim</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>German Expressionism</SelectLabel>
-                          <SelectItem value="M">M</SelectItem>
-                          <SelectItem value="The Cabinet of Dr. Caligari">The Cabinet of Dr. Caligari</SelectItem>
-                          <SelectItem value="Metropolis">Metropolis</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>German Expressionism</SelectLabel>
+                            <SelectItem value="M">M</SelectItem>
+                            <SelectItem value="The Cabinet of Dr. Caligari">The Cabinet of Dr. Caligari</SelectItem>
+                            <SelectItem value="Metropolis">Metropolis</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Japanese Cinema</SelectLabel>
-                          <SelectItem value="Seven Samurai">Seven Samurai</SelectItem>
-                          <SelectItem value="Rashomon">Rashomon</SelectItem>
-                          <SelectItem value="Spirited Away">Spirited Away</SelectItem>
-                          <SelectItem value="Akira">Akira</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Japanese Cinema</SelectLabel>
+                            <SelectItem value="Seven Samurai">Seven Samurai</SelectItem>
+                            <SelectItem value="Rashomon">Rashomon</SelectItem>
+                            <SelectItem value="Spirited Away">Spirited Away</SelectItem>
+                            <SelectItem value="Akira">Akira</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Contemporary</SelectLabel>
-                          <SelectItem value="Inception">Inception</SelectItem>
-                          <SelectItem value="Grand Budapest Hotel">Grand Budapest Hotel</SelectItem>
-                          <SelectItem value="La La Land">La La Land</SelectItem>
-                          <SelectItem value="Mad Max: Fury Road">Mad Max: Fury Road</SelectItem>
-                        </SelectGroup>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Contemporary</SelectLabel>
+                            <SelectItem value="Inception">Inception</SelectItem>
+                            <SelectItem value="Grand Budapest Hotel">Grand Budapest Hotel</SelectItem>
+                            <SelectItem value="La La Land">La La Land</SelectItem>
+                            <SelectItem value="Mad Max: Fury Road">Mad Max: Fury Road</SelectItem>
+                          </SelectGroup>
 
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Experimental</SelectLabel>
-                          <SelectItem value="Un Chien Andalou">Un Chien Andalou</SelectItem>
-                          <SelectItem value="Eraserhead">Eraserhead</SelectItem>
-                          <SelectItem value="The Holy Mountain">The Holy Mountain</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                          <SelectGroup className="pb-2">
+                            <SelectLabel>Experimental</SelectLabel>
+                            <SelectItem value="Un Chien Andalou">Un Chien Andalou</SelectItem>
+                            <SelectItem value="Eraserhead">Eraserhead</SelectItem>
+                            <SelectItem value="The Holy Mountain">The Holy Mountain</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
                   </div>
                   <div>
                     <Label className="font-bold">Time Epoch</Label>
