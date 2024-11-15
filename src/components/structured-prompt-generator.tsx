@@ -139,7 +139,7 @@ export function StructuredPromptGenerator() {
   };
 
   return (
-    <div className="relative min-h-screen pb-40">
+    <div className="relative min-h-screen w-full pb-40">
       <div className="overflow-y-auto">
         <Card className="w-full max-w-3xl mx-auto mb-32">
           <CardHeader>
@@ -229,6 +229,7 @@ export function StructuredPromptGenerator() {
                         Cinematic Portrait
                       </SelectItem>
                       <SelectItem value="3D Render">3D Render</SelectItem>
+                      <SelectItem value="3D Clay Rendered Icon">3D Clay Rendered Icon</SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
@@ -248,22 +249,6 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="Vector Art">Vector Art</SelectItem>
                       <SelectItem value="Pixel Art">Pixel Art</SelectItem>
                       <SelectItem value="Comic Style">Comic Style</SelectItem>
-                    </SelectGroup>
-
-                    <SelectGroup className="pb-2">
-                      <SelectLabel>Art Movements</SelectLabel>
-                      <SelectItem value="Art Deco">Art Deco</SelectItem>
-                      <SelectItem value="Art Nouveau">Art Nouveau</SelectItem>
-                      <SelectItem value="Baroque">Baroque</SelectItem>
-                      <SelectItem value="Bauhaus">Bauhaus</SelectItem>
-                      <SelectItem value="Cubism">Cubism</SelectItem>
-                      <SelectItem value="Expressionism">Expressionism</SelectItem>
-                      <SelectItem value="Impressionism">Impressionism</SelectItem>
-                      <SelectItem value="Minimalism">Minimalism</SelectItem>
-                      <SelectItem value="Pop Art">Pop Art</SelectItem>
-                      <SelectItem value="Surrealism">Surrealism</SelectItem>
-                      <SelectItem value="Street Art">Street Art</SelectItem>
-                      <SelectItem value="Ukiyo-e">Ukiyo-e</SelectItem>
                     </SelectGroup>
 
                     <SelectGroup className="pb-2">
@@ -600,7 +585,7 @@ export function StructuredPromptGenerator() {
                 </CardDescription>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="font-bold">Descriptor I</Label>
+                    <Label className="font-bold">Mood</Label>
                     <Select
                       value={formData.descriptorI}
                       onValueChange={(value) =>
@@ -655,7 +640,7 @@ export function StructuredPromptGenerator() {
                     </Select>
                   </div>
                   <div>
-                    <Label className="font-bold">Descriptor II</Label>
+                    <Label className="font-bold">Art Movement</Label>
                     <Select
                       value={formData.descriptorII}
                       onValueChange={(value) =>
@@ -667,71 +652,221 @@ export function StructuredPromptGenerator() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup className="pb-2">
-                          <SelectLabel>Basic Moods</SelectLabel>
+                          <SelectLabel>Art Movements</SelectLabel>
                           <SelectItem value="None">None</SelectItem>
-                          <SelectItem value="Vibrant">Vibrant</SelectItem>
-                          <SelectItem value="Moody">Moody</SelectItem>
-                          <SelectItem value="Dramatic">Dramatic</SelectItem>
-                          <SelectItem value="Energetic">Energetic</SelectItem>
-                        </SelectGroup>
-
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Peaceful Moods</SelectLabel>
-                          <SelectItem value="Serene">Serene</SelectItem>
-                          <SelectItem value="Peaceful">Peaceful</SelectItem>
-                          <SelectItem value="Minimalistic">Minimalistic</SelectItem>
-                          <SelectItem value="Ethereal">Ethereal</SelectItem>
-                        </SelectGroup>
-
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Atmospheric Moods</SelectLabel>
-                          <SelectItem value="Mysterious">Mysterious</SelectItem>
-                          <SelectItem value="Whimsical">Whimsical</SelectItem>
-                          <SelectItem value="Melancholic">Melancholic</SelectItem>
-                          <SelectItem value="Elegant">Elegant</SelectItem>
-                        </SelectGroup>
-
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Dynamic Moods</SelectLabel>
-                          <SelectItem value="Rustic">Rustic</SelectItem>
-                          <SelectItem value="Chaotic">Chaotic</SelectItem>
-                          <SelectItem value="Dynamic">Dynamic</SelectItem>
-                        </SelectGroup>
-
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Additional Moods</SelectLabel>
-                          <SelectItem value="Nostalgic">Nostalgic</SelectItem>
-                          <SelectItem value="Playful">Playful</SelectItem>
-                          <SelectItem value="Mystical">Mystical</SelectItem>
-                          <SelectItem value="Tranquil">Tranquil</SelectItem>
-                          <SelectItem value="Bold">Bold</SelectItem>
+                          <SelectItem value="Art Deco">Art Deco</SelectItem>
+                          <SelectItem value="Art Nouveau">Art Nouveau</SelectItem>
+                          <SelectItem value="Baroque">Baroque</SelectItem>
+                          <SelectItem value="Bauhaus">Bauhaus</SelectItem>
+                          <SelectItem value="Cubism">Cubism</SelectItem>
+                          <SelectItem value="Expressionism">Expressionism</SelectItem>
+                          <SelectItem value="Impressionism">Impressionism</SelectItem>
+                          <SelectItem value="Minimalism">Minimalism</SelectItem>
+                          <SelectItem value="Pop Art">Pop Art</SelectItem>
+                          <SelectItem value="Surrealism">Surrealism</SelectItem>
+                          <SelectItem value="Street Art">Street Art</SelectItem>
+                          <SelectItem value="Ukiyo-e">Ukiyo-e</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="artist" className="font-bold">
-                      Artist
-                    </Label>
-                    <Input
-                      id="artist"
+                    <Label className="font-bold">Artist</Label>
+                    <Select
                       value={formData.artist}
-                      onChange={(e) => handleInputChange("artist", e.target.value)}
-                      placeholder="E.g., Vincent van Gogh"
-                    />
+                      onValueChange={(value) => handleInputChange("artist", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>None</SelectLabel>
+                          <SelectItem value="None">None</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Renaissance & Baroque</SelectLabel>
+                          <SelectItem value="Leonardo da Vinci">Leonardo da Vinci</SelectItem>
+                          <SelectItem value="Michelangelo">Michelangelo</SelectItem>
+                          <SelectItem value="Artemisia Gentileschi">Artemisia Gentileschi</SelectItem>
+                          <SelectItem value="Rembrandt">Rembrandt</SelectItem>
+                          <SelectItem value="Caravaggio">Caravaggio</SelectItem>
+                          <SelectItem value="Johannes Vermeer">Johannes Vermeer</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Impressionism & Post-Impressionism</SelectLabel>
+                          <SelectItem value="Claude Monet">Claude Monet</SelectItem>
+                          <SelectItem value="Vincent van Gogh">Vincent van Gogh</SelectItem>
+                          <SelectItem value="Mary Cassatt">Mary Cassatt</SelectItem>
+                          <SelectItem value="Berthe Morisot">Berthe Morisot</SelectItem>
+                          <SelectItem value="Edgar Degas">Edgar Degas</SelectItem>
+                          <SelectItem value="Paul Cézanne">Paul Cézanne</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Modern Art</SelectLabel>
+                          <SelectItem value="Frida Kahlo">Frida Kahlo</SelectItem>
+                          <SelectItem value="Georgia O'Keeffe">Georgia O'Keeffe</SelectItem>
+                          <SelectItem value="Pablo Picasso">Pablo Picasso</SelectItem>
+                          <SelectItem value="Salvador Dalí">Salvador Dalí</SelectItem>
+                          <SelectItem value="Wassily Kandinsky">Wassily Kandinsky</SelectItem>
+                          <SelectItem value="Henri Matisse">Henri Matisse</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Contemporary Masters</SelectLabel>
+                          <SelectItem value="Marina Abramović">Marina Abramović</SelectItem>
+                          <SelectItem value="Yayoi Kusama">Yayoi Kusama</SelectItem>
+                          <SelectItem value="Ai Weiwei">Ai Weiwei</SelectItem>
+                          <SelectItem value="Jeff Koons">Jeff Koons</SelectItem>
+                          <SelectItem value="Cindy Sherman">Cindy Sherman</SelectItem>
+                          <SelectItem value="Kehinde Wiley">Kehinde Wiley</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Photography</SelectLabel>
+                          <SelectItem value="Annie Leibovitz">Annie Leibovitz</SelectItem>
+                          <SelectItem value="Dorothea Lange">Dorothea Lange</SelectItem>
+                          <SelectItem value="Ansel Adams">Ansel Adams</SelectItem>
+                          <SelectItem value="Vivian Maier">Vivian Maier</SelectItem>
+                          <SelectItem value="Henri Cartier-Bresson">Henri Cartier-Bresson</SelectItem>
+                          <SelectItem value="Diane Arbus">Diane Arbus</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Digital & Concept Artists</SelectLabel>
+                          <SelectItem value="Beeple">Beeple</SelectItem>
+                          <SelectItem value="Simon Stålenhag">Simon Stålenhag</SelectItem>
+                          <SelectItem value="Julie Bell">Julie Bell</SelectItem>
+                          <SelectItem value="James Jean">James Jean</SelectItem>
+                          <SelectItem value="Artgerm">Artgerm</SelectItem>
+                          <SelectItem value="Ross Tran">Ross Tran</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Street Art</SelectLabel>
+                          <SelectItem value="Banksy">Banksy</SelectItem>
+                          <SelectItem value="Jean-Michel Basquiat">Jean-Michel Basquiat</SelectItem>
+                          <SelectItem value="Lady Pink">Lady Pink</SelectItem>
+                          <SelectItem value="KAWS">KAWS</SelectItem>
+                          <SelectItem value="Shepard Fairey">Shepard Fairey</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Illustrators</SelectLabel>
+                          <SelectItem value="Hayao Miyazaki">Hayao Miyazaki</SelectItem>
+                          <SelectItem value="Tove Jansson">Tove Jansson</SelectItem>
+                          <SelectItem value="Maurice Sendak">Maurice Sendak</SelectItem>
+                          <SelectItem value="Beatrix Potter">Beatrix Potter</SelectItem>
+                          <SelectItem value="Norman Rockwell">Norman Rockwell</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
-                    <Label htmlFor="filmName" className="font-bold">
-                      Film Style
-                    </Label>
-                    <Input
-                      id="filmName"
+                    <Label className="font-bold">Film Style</Label>
+                    <Select
                       value={formData.filmName}
-                      onChange={(e) =>
-                        handleInputChange("filmName", e.target.value)
-                      }
-                      placeholder="E.g., Film Noir"
-                    />
+                      onValueChange={(value) => handleInputChange("filmName", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>None</SelectLabel>
+                          <SelectItem value="None">None</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Film Noir</SelectLabel>
+                          <SelectItem value="The Maltese Falcon">The Maltese Falcon</SelectItem>
+                          <SelectItem value="Double Indemnity">Double Indemnity</SelectItem>
+                          <SelectItem value="Blade Runner">Blade Runner</SelectItem>
+                          <SelectItem value="Sin City">Sin City</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Science Fiction</SelectLabel>
+                          <SelectItem value="2001: A Space Odyssey">2001: A Space Odyssey</SelectItem>
+                          <SelectItem value="The Matrix">The Matrix</SelectItem>
+                          <SelectItem value="Alien">Alien</SelectItem>
+                          <SelectItem value="Metropolis">Metropolis</SelectItem>
+                          <SelectItem value="Dune">Dune</SelectItem>
+                          <SelectItem value="Tron">Tron</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Horror</SelectLabel>
+                          <SelectItem value="The Shining">The Shining</SelectItem>
+                          <SelectItem value="Nosferatu">Nosferatu</SelectItem>
+                          <SelectItem value="A Nightmare on Elm Street">A Nightmare on Elm Street</SelectItem>
+                          <SelectItem value="The Cabinet of Dr. Caligari">The Cabinet of Dr. Caligari</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Fantasy</SelectLabel>
+                          <SelectItem value="Pan's Labyrinth">Pan's Labyrinth</SelectItem>
+                          <SelectItem value="The Lord of the Rings">The Lord of the Rings</SelectItem>
+                          <SelectItem value="The Dark Crystal">The Dark Crystal</SelectItem>
+                          <SelectItem value="The NeverEnding Story">The NeverEnding Story</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Western</SelectLabel>
+                          <SelectItem value="The Good, the Bad and the Ugly">The Good, the Bad and the Ugly</SelectItem>
+                          <SelectItem value="Once Upon a Time in the West">Once Upon a Time in the West</SelectItem>
+                          <SelectItem value="Django Unchained">Django Unchained</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Drama</SelectLabel>
+                          <SelectItem value="Citizen Kane">Citizen Kane</SelectItem>
+                          <SelectItem value="The Godfather">The Godfather</SelectItem>
+                          <SelectItem value="Schindler's List">Schindler's List</SelectItem>
+                          <SelectItem value="Lawrence of Arabia">Lawrence of Arabia</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>French New Wave</SelectLabel>
+                          <SelectItem value="Breathless">Breathless</SelectItem>
+                          <SelectItem value="The 400 Blows">The 400 Blows</SelectItem>
+                          <SelectItem value="Jules and Jim">Jules and Jim</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>German Expressionism</SelectLabel>
+                          <SelectItem value="M">M</SelectItem>
+                          <SelectItem value="The Cabinet of Dr. Caligari">The Cabinet of Dr. Caligari</SelectItem>
+                          <SelectItem value="Metropolis">Metropolis</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Japanese Cinema</SelectLabel>
+                          <SelectItem value="Seven Samurai">Seven Samurai</SelectItem>
+                          <SelectItem value="Rashomon">Rashomon</SelectItem>
+                          <SelectItem value="Spirited Away">Spirited Away</SelectItem>
+                          <SelectItem value="Akira">Akira</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Contemporary</SelectLabel>
+                          <SelectItem value="Inception">Inception</SelectItem>
+                          <SelectItem value="Grand Budapest Hotel">Grand Budapest Hotel</SelectItem>
+                          <SelectItem value="La La Land">La La Land</SelectItem>
+                          <SelectItem value="Mad Max: Fury Road">Mad Max: Fury Road</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Experimental</SelectLabel>
+                          <SelectItem value="Un Chien Andalou">Un Chien Andalou</SelectItem>
+                          <SelectItem value="Eraserhead">Eraserhead</SelectItem>
+                          <SelectItem value="The Holy Mountain">The Holy Mountain</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
                     <Label className="font-bold">Time Epoch</Label>
@@ -896,7 +1031,7 @@ export function StructuredPromptGenerator() {
       </div>
 
       {showPrompt && (
-        <div className="fixed w-full max-w-4xl bottom-0 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-t-lg z-50 shadow-[0_-4px_10px_-2px_rgba(0,0,0,0.2)]">
+        <div className="fixed md:w-11/12 w-full lg:max-w-4xl bottom-0 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-t-lg z-50 shadow-[0_-4px_10px_-2px_rgba(0,0,0,0.2)]">
           <div className="mx-auto mb-4 h-1.5 w-[100px] rounded-full bg-gray-300" />
           <Textarea
             value={generatedPrompt}
