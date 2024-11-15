@@ -1076,16 +1076,17 @@ export function StructuredPromptGenerator() {
 
       {showPrompt && (
         <div className="fixed md:w-11/12 w-full lg:max-w-4xl bottom-0 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-t-lg z-50 shadow-[0_-4px_10px_-2px_rgba(0,0,0,0.2)]">
-          <div className="mx-auto mb-4 h-1.5 w-[100px] rounded-full bg-gray-300" />
+          {/* <div className="mx-auto mb-4 h-1.5 w-[100px] rounded-full bg-gray-300" > */}
+          <Label className="font-bold uppercase">Final Prompt</Label>
           <Textarea
             value={generatedPrompt}
             onChange={(e) => setGeneratedPrompt(e.target.value)}
-            className="min-h-[120px]"
+            className="min-h-[120px] mt-2"
           />
           <Button
             onClick={copyToClipboard}
             variant="outline"
-            className="w-full mt-2 bg-purple-500 hover:bg-purple-600 text-white hover:text-white"
+            className="w-full mt-2 bg-purple-600 hover:bg-purple-700 text-white hover:text-white"
           >
             <ClipboardCopy className="w-4 h-4 mr-2" />
             {copied ? "Copied!" : "Copy to Clipboard"}
