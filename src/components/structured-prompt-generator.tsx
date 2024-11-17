@@ -121,7 +121,7 @@ export function StructuredPromptGenerator() {
     // Parameters
     if (data.tile) parameters += " --tile";
     if (data.styleRaw) parameters += " --style raw";
-    if (data.aspectRatio !== "None") parameters += ` --ar ${data.aspectRatio}`;
+    if (data.aspectRatio) parameters += ` --ar ${data.aspectRatio}`;
     if (data.ignoreWords) parameters += ` --no ${data.ignoreWords}`;
     if (data.styleRandom) {
       parameters += " --sref random";
@@ -256,7 +256,7 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="Drawing">Drawing</SelectItem>
                       <SelectItem value="Painting">Painting</SelectItem>
                       <SelectItem value="3D rendering">3D rendering</SelectItem>
-                      <SelectItem value="3D rendering">
+                      <SelectItem value="3D Clay Rendered Icon">
                         3D Clay Rendered Icon
                       </SelectItem>
                       <SelectItem value="Animation">Animation</SelectItem>
