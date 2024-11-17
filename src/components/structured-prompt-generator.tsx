@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,6 +25,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { ClipboardCopy } from "lucide-react";
 import Link from "next/link";
+import debounce from "lodash/debounce";
+
 export function StructuredPromptGenerator() {
   type FormData = {
     medium: string;
@@ -67,7 +69,7 @@ export function StructuredPromptGenerator() {
     filmName: "",
 
     imageUrl: "",
-    aspectRatio: "16:9",
+    aspectRatio: "",
     ignoreWords: "",
     tile: false,
     styleRaw: false,
@@ -80,71 +82,90 @@ export function StructuredPromptGenerator() {
   });
 
   const [generatedPrompt, setGeneratedPrompt] = useState("");
-
-  // Add new state for copy status
   const [copied, setCopied] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
 
-  const [showPrompt, setShowPrompt] = useState(false); // New state to control visibility of the prompt card
-
-  const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-    setShowPrompt(true); // Show the prompt card when any input changes
-  };
-
-  useEffect(() => {
+  // Memoized function to generate prompt
+  const generatePrompt = useCallback((data: FormData) => {
     let prompt = "";
     let parameters = "";
 
-    // Style Reference URL (at the beginning)
-    if (formData.styleReferenceUrl) {
-      prompt = `${formData.styleReferenceUrl} `;
+    // Style Reference URL
+    if (data.styleReferenceUrl) {
+      prompt = `${data.styleReferenceUrl} `;
     }
 
-    // MEDIUM and SUBJECT
-
-    prompt += `${formData.medium} of ${formData.subject}`;
-
-    // ENVIRONMENT
-    if (formData.environment) {
-      prompt += `, ${formData.environment}`;
+    // Basic composition
+    if (data.medium || data.subject) {
+      prompt += `${data.medium} of ${data.subject}`;
     }
 
-    // COMPOSITION
-    if (formData.view !== "None") prompt += `, ${formData.view}`;
-    if (formData.camera !== "None") prompt += `, ${formData.camera}`;
-    if (formData.lens !== "None") prompt += `, ${formData.lens}`;
-    if (formData.lighting !== "None") prompt += `, ${formData.lighting}`;
+    // Environment
+    if (data.environment) {
+      prompt += `, ${data.environment}`;
+    }
 
-    // STYLE
-    if (formData.descriptorI !== "None") prompt += `, ${formData.descriptorI}`;
-    if (formData.descriptorII !== "None")
-      prompt += `, ${formData.descriptorII}`;
-    if (formData.artist) prompt += `, by ${formData.artist}`;
-    if (formData.filmName) prompt += `, ${formData.filmName} film style`;
-    if (formData.timeEpoch !== "None")
-      prompt += `, Time Period: ${formData.timeEpoch}`;
+    // Composition
+    if (data.view !== "None") prompt += `, ${data.view}`;
+    if (data.camera !== "None") prompt += `, ${data.camera}`;
+    if (data.lens !== "None") prompt += `, ${data.lens}`;
+    if (data.lighting !== "None") prompt += `, ${data.lighting}`;
 
-    // Collect all parameters
-    if (formData.tile) parameters += " --tile";
-    if (formData.styleRaw) parameters += " --style raw";
-    if (formData.aspectRatio !== "None")
-      parameters += ` --ar ${formData.aspectRatio}`;
-    if (formData.ignoreWords) parameters += ` --no ${formData.ignoreWords}`;
-    if (formData.styleRandom) {
+    // Style
+    if (data.descriptorI !== "None") prompt += `, ${data.descriptorI}`;
+    if (data.descriptorII !== "None") prompt += `, ${data.descriptorII}`;
+    if (data.artist) prompt += `, by ${data.artist}`;
+    if (data.filmName) prompt += `, ${data.filmName} film style`;
+    if (data.timeEpoch !== "None") prompt += `, Time Period: ${data.timeEpoch}`;
+
+    // Parameters
+    if (data.tile) parameters += " --tile";
+    if (data.styleRaw) parameters += " --style raw";
+    if (data.aspectRatio !== "None") parameters += ` --ar ${data.aspectRatio}`;
+    if (data.ignoreWords) parameters += ` --no ${data.ignoreWords}`;
+    if (data.styleRandom) {
       parameters += " --sref random";
-    } else if (formData.styleReference) {
-      parameters += ` --sref ${formData.styleReference}`;
+    } else if (data.styleReference) {
+      parameters += ` --sref ${data.styleReference}`;
     }
 
-    // Combine prompt and parameters
-    setGeneratedPrompt(prompt + parameters);
-  }, [formData]); // Update prompt whenever formData changes
+    return prompt + parameters;
+  }, []);
 
-  const copyToClipboard = () => {
+  // Debounced update function
+  const debouncedUpdatePrompt = useMemo(
+    () =>
+      debounce((newData: FormData) => {
+        const newPrompt = generatePrompt(newData);
+        setGeneratedPrompt(newPrompt);
+      }, 500),
+    [generatePrompt]
+  );
+
+  // Optimized input change handler
+  const handleInputChange = useCallback(
+    (field: string, value: string | boolean) => {
+      const newData = { ...formData, [field]: value };
+      setFormData(newData);
+      setShowPrompt(true);
+      debouncedUpdatePrompt(newData);
+    },
+    [formData, debouncedUpdatePrompt]
+  );
+
+  // Cleanup debounce on unmount
+  useEffect(() => {
+    return () => {
+      debouncedUpdatePrompt.cancel();
+    };
+  }, [debouncedUpdatePrompt]);
+
+  // Memoized copy to clipboard handler
+  const copyToClipboard = useCallback(() => {
     navigator.clipboard.writeText(generatedPrompt);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
-  };
+    setTimeout(() => setCopied(false), 2000);
+  }, [generatedPrompt]);
 
   return (
     <div className="relative min-h-screen w-full pb-40">
@@ -235,6 +256,9 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="Drawing">Drawing</SelectItem>
                       <SelectItem value="Painting">Painting</SelectItem>
                       <SelectItem value="3D rendering">3D rendering</SelectItem>
+                      <SelectItem value="3D rendering">
+                        3D Clay Rendered Icon
+                      </SelectItem>
                       <SelectItem value="Animation">Animation</SelectItem>
                       <SelectItem value="Billboard">Billboard</SelectItem>
                       <SelectItem value="Blueprint">Blueprint</SelectItem>
@@ -1502,10 +1526,10 @@ export function StructuredPromptGenerator() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectGroup className="pb-2">
+                        {/* <SelectGroup className="pb-2">
                           <SelectLabel>Default</SelectLabel>
                           <SelectItem value="None">None</SelectItem>
-                        </SelectGroup>
+                        </SelectGroup> */}
 
                         <SelectGroup className="pb-2">
                           <SelectLabel>Square</SelectLabel>
