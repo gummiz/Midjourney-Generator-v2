@@ -246,7 +246,19 @@ export function StructuredPromptGenerator() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup className="pb-2">
-                      <SelectItem value="None">None</SelectItem>
+                      <SelectLabel>Favorite Mediums</SelectLabel>
+                      <SelectItem value="Photograph">Photograph</SelectItem>
+                      <SelectItem value="Product Photography">
+                        Product Photography
+                      </SelectItem>
+                      <SelectItem value="Commercial Photography">
+                        Commercial Photography
+                      </SelectItem>
+                      <SelectItem value="Illustration">Illustration</SelectItem>
+                      <SelectItem value="Digital Art">Digital Art</SelectItem>
+                      <SelectItem value="3D Model">3D Model</SelectItem>
+
+
                       <SelectLabel>2D Mediums</SelectLabel>
                       <SelectItem value="Photograph">Photograph</SelectItem>
                       <SelectItem value="Film Still">Film Still</SelectItem>
@@ -262,6 +274,7 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="Animation">Animation</SelectItem>
                       <SelectItem value="Billboard">Billboard</SelectItem>
                       <SelectItem value="Blueprint">Blueprint</SelectItem>
+                      <SelectItem value="Risograph">Risograph</SelectItem>
                       <SelectItem value="Brochure">Brochure</SelectItem>
                       <SelectItem value="Calligraphy">Calligraphy</SelectItem>
                       <SelectItem value="Cartoon">Cartoon</SelectItem>
