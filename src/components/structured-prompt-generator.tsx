@@ -255,7 +255,7 @@ export function StructuredPromptGenerator() {
                         Commercial Photography
                       </SelectItem>
                       <SelectItem value="Illustration">Illustration</SelectItem>
-                      <SelectItem value="Digital Art">Digital Art</SelectItem>
+                      <SelectItem value="Character design sheet">Character design sheet</SelectItem>
                       <SelectItem value="3D Model">3D Model</SelectItem>
 
 
