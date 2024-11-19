@@ -254,6 +254,9 @@ export function StructuredPromptGenerator() {
                       <SelectItem value="Commercial Photography">
                         Commercial Photography
                       </SelectItem>
+                      <SelectItem value="Studio Photography">
+                        Studio Photography
+                      </SelectItem>
                       <SelectItem value="Illustration">Illustration</SelectItem>
                       <SelectItem value="Character design sheet">Character design sheet</SelectItem>
                       <SelectItem value="3D Model">3D Model</SelectItem>
@@ -506,65 +509,58 @@ export function StructuredPromptGenerator() {
                           <SelectItem value="None">None</SelectItem>
                           <SelectItem value="Front view">Front view</SelectItem>
                           <SelectItem value="Back view">Back view</SelectItem>
-                          <SelectItem value="Profile view">
-                            Profile view
-                          </SelectItem>
-                          <SelectItem value="Three-quarter view">
-                            Three-quarter view
-                          </SelectItem>
+                          <SelectItem value="Side view">Side view</SelectItem>
+                          <SelectItem value="Profile view">Profile view</SelectItem>
+                          <SelectItem value="Three-quarter view">Three-quarter view</SelectItem>
+                          <SelectItem value="45-degree view">45-degree view</SelectItem>
+                          <SelectItem value="Top view">Top view</SelectItem>
+                          <SelectItem value="Bottom view">Bottom view</SelectItem>
+                          <SelectItem value="Diagonal view">Diagonal view</SelectItem>
                         </SelectGroup>
 
                         <SelectGroup className="pb-2">
                           <SelectLabel>Distance</SelectLabel>
                           <SelectItem value="Close-up">Close-up</SelectItem>
+                          <SelectItem value="Extreme close-up">Extreme close-up</SelectItem>
+                          <SelectItem value="Medium shot">Medium shot</SelectItem>
+                          <SelectItem value="Long shot">Long shot</SelectItem>
+                          <SelectItem value="Extreme long shot">Extreme long shot</SelectItem>
                           <SelectItem value="Wide angle">Wide angle</SelectItem>
+                          <SelectItem value="Ultra wide">Ultra wide</SelectItem>
                           <SelectItem value="Macro">Macro</SelectItem>
                           <SelectItem value="Telephoto">Telephoto</SelectItem>
+                          <SelectItem value="Super telephoto">Super telephoto</SelectItem>
                         </SelectGroup>
 
                         <SelectGroup className="pb-2">
                           <SelectLabel>Perspective</SelectLabel>
-                          <SelectItem value="Aerial view">
-                            Aerial view
-                          </SelectItem>
-                          <SelectItem value="Bird's eye view">
-                            Bird&apos;s eye view
-                          </SelectItem>
-                          <SelectItem value="Worm's eye view">
-                            Worm&apos;s eye view
-                          </SelectItem>
-                          <SelectItem value="First person">
-                            First person
-                          </SelectItem>
-                          <SelectItem value="Third person">
-                            Third person
-                          </SelectItem>
-                          <SelectItem value="Over the shoulder">
-                            Over the shoulder
-                          </SelectItem>
+                          <SelectItem value="Aerial view">Aerial view</SelectItem>
+                          <SelectItem value="Bird's eye view">Bird&apos;s eye view</SelectItem>
+                          <SelectItem value="Worm's eye view">Worm&apos;s eye view</SelectItem>
+                          <SelectItem value="First person">First person</SelectItem>
+                          <SelectItem value="Third person">Third person</SelectItem>
+                          <SelectItem value="Over the shoulder">Over the shoulder</SelectItem>
                           <SelectItem value="Isometric">Isometric</SelectItem>
+                          <SelectItem value="Dimetric">Dimetric</SelectItem>
+                          <SelectItem value="Low angle">Low angle</SelectItem>
+                          <SelectItem value="High angle">High angle</SelectItem>
+                          <SelectItem value="Oblique angle">Oblique angle</SelectItem>
                         </SelectGroup>
 
                         <SelectGroup className="pb-2">
                           <SelectLabel>Special Effects</SelectLabel>
-                          <SelectItem value="Shallow depth of field">
-                            Shallow depth of field
-                          </SelectItem>
-                          <SelectItem value="Dutch angle">
-                            Dutch angle
-                          </SelectItem>
+                          <SelectItem value="Shallow depth of field">Shallow depth of field</SelectItem>
+                          <SelectItem value="Deep depth of field">Deep depth of field</SelectItem>
+                          <SelectItem value="Dutch angle">Dutch angle</SelectItem>
                           <SelectItem value="Panoramic">Panoramic</SelectItem>
+                          <SelectItem value="360-degree">360-degree</SelectItem>
                           <SelectItem value="Fish eye">Fish eye</SelectItem>
                           <SelectItem value="Tilt shift">Tilt shift</SelectItem>
-                          <SelectItem value="Double exposure">
-                            Double exposure
-                          </SelectItem>
-                          <SelectItem value="Motion blur">
-                            Motion blur
-                          </SelectItem>
-                          <SelectItem value="Long exposure">
-                            Long exposure
-                          </SelectItem>
+                          <SelectItem value="Double exposure">Double exposure</SelectItem>
+                          <SelectItem value="Multiple exposure">Multiple exposure</SelectItem>
+                          <SelectItem value="Motion blur">Motion blur</SelectItem>
+                          <SelectItem value="Long exposure">Long exposure</SelectItem>
+                          <SelectItem value="Time-lapse">Time-lapse</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -707,6 +703,15 @@ export function StructuredPromptGenerator() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="None">None</SelectItem>
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Favorite Lighting</SelectLabel>
+                          <SelectItem value="Studio lighting">Studio lighting</SelectItem>
+                          <SelectItem value="Natural daylight">Natural daylight</SelectItem>
+                          <SelectItem value="Golden hour sunlight">Golden hour sunlight</SelectItem>
+                          <SelectItem value="Soft lighting">Soft lighting</SelectItem>
+                          <SelectItem value="Dramatic lighting">Dramatic lighting</SelectItem>
+                        </SelectGroup>
+
                         <SelectGroup className="pb-2">
                           <SelectLabel>Natural Lighting</SelectLabel>
                           <SelectItem value="Daylight">Daylight</SelectItem>
@@ -941,7 +946,7 @@ export function StructuredPromptGenerator() {
                 </CardDescription>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="font-bold">Mood</Label>
+                    <Label className="font-bold">Emotion / Mood</Label>
                     <Select
                       value={formData.descriptorI}
                       onValueChange={(value) =>
@@ -953,48 +958,63 @@ export function StructuredPromptGenerator() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup className="pb-2">
-                          <SelectLabel>Basic Moods</SelectLabel>
+                          <SelectLabel>Basic Emotions</SelectLabel>
                           <SelectItem value="None">None</SelectItem>
-                          <SelectItem value="Vibrant">Vibrant</SelectItem>
-                          <SelectItem value="Moody">Moody</SelectItem>
-                          <SelectItem value="Dramatic">Dramatic</SelectItem>
-                          <SelectItem value="Energetic">Energetic</SelectItem>
+                          <SelectItem value="Happy">Happy</SelectItem>
+                          <SelectItem value="Sad">Sad</SelectItem>
+                          <SelectItem value="Angry">Angry</SelectItem>
+                          <SelectItem value="Fearful">Fearful</SelectItem>
+                          <SelectItem value="Surprised">Surprised</SelectItem>
+                          <SelectItem value="Disgusted">Disgusted</SelectItem>
                         </SelectGroup>
 
                         <SelectGroup className="pb-2">
-                          <SelectLabel>Peaceful Moods</SelectLabel>
-                          <SelectItem value="Serene">Serene</SelectItem>
+                          <SelectLabel>Positive Moods</SelectLabel>
+                          <SelectItem value="Joyful">Joyful</SelectItem>
+                          <SelectItem value="Excited">Excited</SelectItem>
                           <SelectItem value="Peaceful">Peaceful</SelectItem>
-                          <SelectItem value="Minimalistic">
-                            Minimalistic
-                          </SelectItem>
-                          <SelectItem value="Ethereal">Ethereal</SelectItem>
+                          <SelectItem value="Serene">Serene</SelectItem>
+                          <SelectItem value="Content">Content</SelectItem>
+                          <SelectItem value="Optimistic">Optimistic</SelectItem>
+                          <SelectItem value="Playful">Playful</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Negative Moods</SelectLabel>
+                          <SelectItem value="Melancholic">Melancholic</SelectItem>
+                          <SelectItem value="Gloomy">Gloomy</SelectItem>
+                          <SelectItem value="Anxious">Anxious</SelectItem>
+                          <SelectItem value="Depressed">Depressed</SelectItem>
+                          <SelectItem value="Frustrated">Frustrated</SelectItem>
+                          <SelectItem value="Lonely">Lonely</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Complex Moods</SelectLabel>
+                          <SelectItem value="Nostalgic">Nostalgic</SelectItem>
+                          <SelectItem value="Mysterious">Mysterious</SelectItem>
+                          <SelectItem value="Contemplative">Contemplative</SelectItem>
+                          <SelectItem value="Bittersweet">Bittersweet</SelectItem>
+                          <SelectItem value="Ambivalent">Ambivalent</SelectItem>
                         </SelectGroup>
 
                         <SelectGroup className="pb-2">
                           <SelectLabel>Atmospheric Moods</SelectLabel>
-                          <SelectItem value="Mysterious">Mysterious</SelectItem>
-                          <SelectItem value="Whimsical">Whimsical</SelectItem>
-                          <SelectItem value="Melancholic">
-                            Melancholic
-                          </SelectItem>
-                          <SelectItem value="Elegant">Elegant</SelectItem>
-                        </SelectGroup>
-
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Dynamic Moods</SelectLabel>
-                          <SelectItem value="Rustic">Rustic</SelectItem>
-                          <SelectItem value="Chaotic">Chaotic</SelectItem>
-                          <SelectItem value="Dynamic">Dynamic</SelectItem>
-                        </SelectGroup>
-
-                        <SelectGroup className="pb-2">
-                          <SelectLabel>Additional Moods</SelectLabel>
-                          <SelectItem value="Nostalgic">Nostalgic</SelectItem>
-                          <SelectItem value="Playful">Playful</SelectItem>
+                          <SelectItem value="Ethereal">Ethereal</SelectItem>
+                          <SelectItem value="Dramatic">Dramatic</SelectItem>
                           <SelectItem value="Mystical">Mystical</SelectItem>
+                          <SelectItem value="Whimsical">Whimsical</SelectItem>
+                          <SelectItem value="Chaotic">Chaotic</SelectItem>
                           <SelectItem value="Tranquil">Tranquil</SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup className="pb-2">
+                          <SelectLabel>Energetic States</SelectLabel>
+                          <SelectItem value="Vibrant">Vibrant</SelectItem>
+                          <SelectItem value="Energetic">Energetic</SelectItem>
+                          <SelectItem value="Dynamic">Dynamic</SelectItem>
                           <SelectItem value="Bold">Bold</SelectItem>
+                          <SelectItem value="Intense">Intense</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -1502,7 +1522,7 @@ export function StructuredPromptGenerator() {
                 </div>
                 <div className="mt-4">
                   <Label htmlFor="styleReferenceUrl" className="font-bold">
-                    Style Reference URL
+                    Image Reference URL
                   </Label>
                   <Input
                     id="styleReferenceUrl"
