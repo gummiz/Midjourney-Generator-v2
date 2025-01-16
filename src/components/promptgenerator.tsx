@@ -14,7 +14,7 @@ interface InputField {
   name: string;
   label: string;
   type: string;
-  options?: Array<{ value: string; label: string }>;
+  options?: Array<{ value: string; label: string; group?: string }>;
   fullWidth?: boolean;
 }
 
@@ -51,7 +51,7 @@ const PromptGenerator = () => {
     ignoreWords: '',
     tile: false,
     styleRaw: false,
-    version: '--v 5'
+    version: '--v 6.1'
   });
 
   const handleInputChange = (name: string, value: string | boolean) => {
@@ -75,17 +75,17 @@ const PromptGenerator = () => {
       formData.environment,
 
       // Technical aspects
-      formData.view,
-      formData.camera,
-      formData.lens,
-      formData.lighting,
+      formData.view !== 'None' && formData.view,
+      formData.camera !== 'None' && formData.camera,
+      formData.lens !== 'None' && formData.lens,
+      formData.lighting !== 'None' && formData.lighting,
 
       // Style and mood
-      formData.descriptorI,
-      formData.descriptorII,
+      formData.descriptorI !== 'None' && formData.descriptorI,
+      formData.descriptorII !== 'None' && formData.descriptorII,
       formData.artist && `by ${formData.artist}`,
       formData.filmStyle && `${formData.filmStyle} film style`,
-      formData.timeEpoch !== 'None' && `Time Period: ${formData.timeEpoch}`,
+      formData.timeEpoch !== 'None' && formData.timeEpoch && `Time Period: ${formData.timeEpoch}`,
     ];
 
     // Build parameters string
@@ -115,8 +115,8 @@ const PromptGenerator = () => {
         </CardDescription>
         <div className="grid grid-cols-1 gap-4">
           {fields.map(({ name, label, type, options, fullWidth }) => (
-            <div key={name} className={`flex flex-col ${fullWidth ? 'col-span-1' : 'md:col-span-1'}`}>
-              <Label className="font-bold">{label}</Label>
+            <div key={name} className={`grid w-full items-center gap-1.5 ${fullWidth ? 'col-span-1' : 'md:col-span-1'}`}>
+              <Label htmlFor={name} className="font-bold">{label}</Label>
               {type === 'select' ? (
                 <Select
                   value={formData[name as keyof typeof formData] as string}
@@ -126,16 +126,24 @@ const PromptGenerator = () => {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {options?.map((opt) => (
-                      <SelectItem key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </SelectItem>
+                    {!options?.some(opt => opt.group) && <SelectItem value="None">None</SelectItem>}
+
+                    {Array.from(new Set(options?.filter(opt => opt.group).map(opt => opt.group))).map(group => (
+                      <SelectGroup key={group} className="pb-2">
+                        <SelectLabel>{group}</SelectLabel>
+                        {options?.filter(opt => opt.group === group).map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     ))}
                   </SelectContent>
                 </Select>
               ) : type === 'checkbox' ? (
                 <div className="flex items-center space-x-2 h-10">
                   <Checkbox
+                    id={name}
                     checked={formData[name as keyof typeof formData] as boolean}
                     onCheckedChange={(checked) => handleInputChange(name, !!checked)}
                   />
@@ -143,6 +151,7 @@ const PromptGenerator = () => {
                 </div>
               ) : (
                 <Input
+                  id={name}
                   type="text"
                   value={formData[name as keyof typeof formData] as string}
                   onChange={(e) => handleInputChange(name, e.target.value)}
@@ -228,6 +237,7 @@ const PromptGenerator = () => {
                 type: 'select',
                 fullWidth: false,
                 options: [
+                  { value: 'None', label: 'None' },
                   // Favorite Mediums
                   { value: 'Photograph', label: 'Photograph' },
                   { value: 'Product Photography', label: 'Product Photography' },
@@ -236,13 +246,124 @@ const PromptGenerator = () => {
                   { value: 'Illustration', label: 'Illustration' },
                   { value: 'Character design sheet', label: 'Character design sheet' },
                   { value: '3D Model', label: '3D Model' },
+
                   // 2D Mediums
                   { value: 'Film Still', label: 'Film Still' },
                   { value: 'Cinematic Portrait', label: 'Cinematic Portrait' },
                   { value: 'Drawing', label: 'Drawing' },
                   { value: 'Painting', label: 'Painting' },
                   { value: '3D rendering', label: '3D rendering' },
-                  // ... add more from structured generator
+                  { value: '3D Clay Rendered Icon', label: '3D Clay Rendered Icon' },
+                  { value: 'Animation', label: 'Animation' },
+                  { value: 'Billboard', label: 'Billboard' },
+                  { value: 'Blueprint', label: 'Blueprint' },
+                  { value: 'Risograph', label: 'Risograph' },
+                  { value: 'Brochure', label: 'Brochure' },
+                  { value: 'Calligraphy', label: 'Calligraphy' },
+                  { value: 'Cartoon', label: 'Cartoon' },
+                  { value: 'Collage', label: 'Collage' },
+                  { value: 'Comic book', label: 'Comic book' },
+                  { value: 'Digital art', label: 'Digital art' },
+                  { value: 'Flyer', label: 'Flyer' },
+                  { value: 'Folk Art', label: 'Folk Art' },
+                  { value: 'Icon', label: 'Icon' },
+                  { value: 'Infographic', label: 'Infographic' },
+                  { value: 'Logo', label: 'Logo' },
+                  { value: 'Magazine', label: 'Magazine' },
+                  { value: 'Map', label: 'Map' },
+                  { value: 'Movie poster', label: 'Movie poster' },
+                  { value: 'Pixel art', label: 'Pixel art' },
+                  { value: 'Poster', label: 'Poster' },
+                  { value: 'Vector art', label: 'Vector art' },
+                  { value: 'Wall mural', label: 'Wall mural' },
+                  { value: 'Woodblock print', label: 'Woodblock print' },
+
+                  // Drawing Techniques
+                  { value: 'Anatomical drawing', label: 'Anatomical drawing' },
+                  { value: 'Anime', label: 'Anime' },
+                  { value: 'Aquarelle', label: 'Aquarelle' },
+                  { value: 'Ballpoint pen drawing', label: 'Ballpoint pen drawing' },
+                  { value: 'Chalk drawing', label: 'Chalk drawing' },
+                  { value: 'Charcoal drawing', label: 'Charcoal drawing' },
+                  { value: 'Colored pencil drawing', label: 'Colored pencil drawing' },
+                  { value: 'Comics', label: 'Comics' },
+                  { value: 'Crosshatch drawing', label: 'Crosshatch drawing' },
+                  { value: 'India ink drawing', label: 'India ink drawing' },
+                  { value: 'Ink drawing', label: 'Ink drawing' },
+                  { value: 'Marker drawing', label: 'Marker drawing' },
+                  { value: 'Pastel drawing', label: 'Pastel drawing' },
+                  { value: 'Pencil drawing', label: 'Pencil drawing' },
+                  { value: 'Pointillism drawing', label: 'Pointillism drawing' },
+
+                  // Painting Techniques
+                  { value: 'Acrylic painting', label: 'Acrylic painting' },
+                  { value: 'Airbrush painting', label: 'Airbrush painting' },
+                  { value: 'Digital painting', label: 'Digital painting' },
+                  { value: 'Fresco painting', label: 'Fresco painting' },
+                  { value: 'Gouache painting', label: 'Gouache painting' },
+                  { value: 'Graffiti painting', label: 'Graffiti painting' },
+                  { value: 'Oil painting', label: 'Oil painting' },
+                  { value: 'Pastel painting', label: 'Pastel painting' },
+                  { value: 'Watercolor painting', label: 'Watercolor painting' },
+                  { value: 'Street art painting', label: 'Street art painting' },
+
+                  // Photography
+                  { value: '35mm film photography', label: '35mm film photography' },
+                  { value: 'Analog photography', label: 'Analog photography' },
+                  { value: 'Digital photography', label: 'Digital photography' },
+                  { value: 'Infrared photography', label: 'Infrared photography' },
+                  { value: 'Lomography', label: 'Lomography' },
+                  { value: 'Polaroid photography', label: 'Polaroid photography' },
+                  { value: 'Portrait photography', label: 'Portrait photography' },
+                  { value: 'Product photography', label: 'Product photography' },
+                  { value: 'Vintage film photography', label: 'Vintage film photography' },
+
+                  // 3D Techniques
+                  { value: 'Claymation', label: 'Claymation' },
+                  { value: 'Diorama', label: 'Diorama' },
+                  { value: 'Glass sculpture', label: 'Glass sculpture' },
+                  { value: 'Ice sculpture', label: 'Ice sculpture' },
+                  { value: 'Origami', label: 'Origami' },
+                  { value: 'Paper mache sculpture', label: 'Paper mache sculpture' },
+                  { value: 'Pottery', label: 'Pottery' },
+                  { value: 'Sculpture', label: 'Sculpture' },
+                  { value: 'Stained glass', label: 'Stained glass' },
+
+                  // Displays
+                  { value: '4k display', label: '4k display' },
+                  { value: 'CRT display', label: 'CRT display' },
+                  { value: 'Holograph display', label: 'Holograph display' },
+                  { value: 'LCD display', label: 'LCD display' },
+                  { value: 'LED display', label: 'LED display' },
+                  { value: 'OLED display', label: 'OLED display' },
+                  { value: 'Plasma display', label: 'Plasma display' },
+                  { value: 'VHS tape', label: 'VHS tape' },
+
+                  // Distance
+                  { value: 'Close-up', label: 'Close-up' },
+                  { value: 'Extreme close-up', label: 'Extreme close-up' },
+                  { value: 'Medium shot', label: 'Medium shot' },
+                  { value: 'Long shot', label: 'Long shot' },
+                  { value: 'Extreme long shot', label: 'Extreme long shot' },
+                  { value: 'Wide angle', label: 'Wide angle' },
+                  { value: 'Ultra wide', label: 'Ultra wide' },
+                  { value: 'Macro', label: 'Macro' },
+                  { value: 'Telephoto', label: 'Telephoto' },
+                  { value: 'Super telephoto', label: 'Super telephoto' },
+
+                  // Special Effects
+                  { value: 'Shallow depth of field', label: 'Shallow depth of field' },
+                  { value: 'Deep depth of field', label: 'Deep depth of field' },
+                  { value: 'Dutch angle', label: 'Dutch angle' },
+                  { value: 'Panoramic', label: 'Panoramic' },
+                  { value: '360-degree', label: '360-degree' },
+                  { value: 'Fish eye', label: 'Fish eye' },
+                  { value: 'Tilt shift', label: 'Tilt shift' },
+                  { value: 'Double exposure', label: 'Double exposure' },
+                  { value: 'Multiple exposure', label: 'Multiple exposure' },
+                  { value: 'Motion blur', label: 'Motion blur' },
+                  { value: 'Long exposure', label: 'Long exposure' },
+                  { value: 'Time-lapse', label: 'Time-lapse' }
                 ]
               },
               {
@@ -298,8 +419,31 @@ const PromptGenerator = () => {
                 { value: 'Studio lighting', label: 'Studio lighting' },
                 { value: 'Natural daylight', label: 'Natural daylight' },
                 { value: 'Golden hour sunlight', label: 'Golden hour sunlight' },
+                { value: 'Soft lighting', label: 'Soft lighting' },
                 { value: 'Dramatic lighting', label: 'Dramatic lighting' },
-                { value: 'Soft lighting', label: 'Soft lighting' }
+                { value: 'Daylight', label: 'Daylight' },
+                { value: 'Morning light', label: 'Morning light' },
+                { value: 'Twilight lighting', label: 'Twilight lighting' },
+                { value: 'Moonlight', label: 'Moonlight' },
+                { value: 'Bioluminescence', label: 'Bioluminescence' },
+                { value: 'Incandescent lighting', label: 'Incandescent lighting' },
+                { value: 'Fluorescent lighting', label: 'Fluorescent lighting' },
+                { value: 'Neon lighting', label: 'Neon lighting' },
+                { value: 'LED lights', label: 'LED lights' },
+                { value: 'Backlighting', label: 'Backlighting' },
+                { value: 'Overhead lighting', label: 'Overhead lighting' },
+                { value: 'Wall sconce light', label: 'Wall sconce light' },
+                { value: 'Pendant light', label: 'Pendant light' },
+                { value: 'Night light', label: 'Night light' },
+                { value: 'Candle light', label: 'Candle light' },
+                { value: 'Firelight', label: 'Firelight' },
+                { value: 'Edison bulb', label: 'Edison bulb' },
+                { value: 'Vacuum tube bulb', label: 'Vacuum tube bulb' },
+                { value: 'Nixie tube bulb', label: 'Nixie tube bulb' },
+                { value: 'Christmas lights', label: 'Christmas lights' },
+                { value: 'Party lighting', label: 'Party lighting' },
+                { value: 'Black light', label: 'Black light' },
+                { value: 'UV light', label: 'UV light' }
               ]}
             ]
           })}
@@ -309,27 +453,74 @@ const PromptGenerator = () => {
             description: 'Define the artistic style and mood',
             fields: [
               { name: 'descriptorI', label: 'Mood/Emotion', type: 'select', options: [
-                { value: 'None', label: 'None' },
-                { value: 'Happy', label: 'Happy' },
-                { value: 'Peaceful', label: 'Peaceful' },
-                { value: 'Dramatic', label: 'Dramatic' },
-                { value: 'Mysterious', label: 'Mysterious' },
-                { value: 'Ethereal', label: 'Ethereal' }
+                // { value: 'None', label: 'None', group: "Basic Emotions" },
+                // Basic Emotions
+                { value: 'Happy', label: 'Happy', group: 'Basic Emotions' },
+                { value: 'Sad', label: 'Sad', group: 'Basic Emotions' },
+                { value: 'Angry', label: 'Angry', group: 'Basic Emotions' },
+                { value: 'Fearful', label: 'Fearful', group: 'Basic Emotions' },
+                { value: 'Surprised', label: 'Surprised', group: 'Basic Emotions' },
+                { value: 'Disgusted', label: 'Disgusted', group: 'Basic Emotions' },
+                // Positive Moods
+                { value: 'Joyful', label: 'Joyful', group: 'Positive Moods' },
+                { value: 'Excited', label: 'Excited', group: 'Positive Moods' },
+                { value: 'Peaceful', label: 'Peaceful', group: 'Positive Moods' },
+                { value: 'Serene', label: 'Serene', group: 'Positive Moods' },
+                { value: 'Content', label: 'Content', group: 'Positive Moods' },
+                { value: 'Optimistic', label: 'Optimistic', group: 'Positive Moods' },
+                { value: 'Playful', label: 'Playful', group: 'Positive Moods' },
+                // Negative Moods
+                { value: 'Melancholic', label: 'Melancholic', group: 'Negative Moods' },
+                { value: 'Gloomy', label: 'Gloomy', group: 'Negative Moods' },
+                { value: 'Anxious', label: 'Anxious', group: 'Negative Moods' },
+                { value: 'Depressed', label: 'Depressed', group: 'Negative Moods' },
+                { value: 'Frustrated', label: 'Frustrated', group: 'Negative Moods' },
+                { value: 'Lonely', label: 'Lonely', group: 'Negative Moods' },
+                // Complex Moods
+                { value: 'Nostalgic', label: 'Nostalgic', group: 'Complex Moods' },
+                { value: 'Mysterious', label: 'Mysterious', group: 'Complex Moods' },
+                { value: 'Contemplative', label: 'Contemplative', group: 'Complex Moods' },
+                { value: 'Bittersweet', label: 'Bittersweet', group: 'Complex Moods' },
+                { value: 'Ambivalent', label: 'Ambivalent', group: 'Complex Moods' },
+                // Atmospheric Moods
+                { value: 'Ethereal', label: 'Ethereal', group: 'Atmospheric Moods' },
+                { value: 'Dramatic', label: 'Dramatic', group: 'Atmospheric Moods' },
+                { value: 'Mystical', label: 'Mystical', group: 'Atmospheric Moods' },
+                { value: 'Whimsical', label: 'Whimsical', group: 'Atmospheric Moods' },
+                { value: 'Chaotic', label: 'Chaotic', group: 'Atmospheric Moods' },
+                { value: 'Tranquil', label: 'Tranquil', group: 'Atmospheric Moods' },
+                // Energetic States
+                { value: 'Vibrant', label: 'Vibrant', group: 'Energetic States' },
+                { value: 'Energetic', label: 'Energetic', group: 'Energetic States' },
+                { value: 'Dynamic', label: 'Dynamic', group: 'Energetic States' },
+                { value: 'Bold', label: 'Bold', group: 'Energetic States' },
+                { value: 'Intense', label: 'Intense', group: 'Energetic States' }
               ]},
               { name: 'descriptorII', label: 'Art Movement', type: 'select', options: [
                 { value: 'None', label: 'None' },
                 { value: 'Art Deco', label: 'Art Deco' },
                 { value: 'Art Nouveau', label: 'Art Nouveau' },
                 { value: 'Baroque', label: 'Baroque' },
+                { value: 'Bauhaus', label: 'Bauhaus' },
+                { value: 'Cubism', label: 'Cubism' },
+                { value: 'Expressionism', label: 'Expressionism' },
+                { value: 'Impressionism', label: 'Impressionism' },
                 { value: 'Minimalism', label: 'Minimalism' },
-                { value: 'Surrealism', label: 'Surrealism' }
+                { value: 'Pop Art', label: 'Pop Art' },
+                { value: 'Surrealism', label: 'Surrealism' },
+                { value: 'Street Art', label: 'Street Art' },
+                { value: 'Ukiyo-e', label: 'Ukiyo-e' }
               ]},
               { name: 'timeEpoch', label: 'Time Period', type: 'select', options: [
                 { value: 'None', label: 'None' },
                 { value: 'Ancient', label: 'Ancient (3000 BCE - 500 CE)' },
                 { value: 'Medieval', label: 'Medieval (500-1400)' },
                 { value: 'Renaissance', label: 'Renaissance (1400-1600)' },
+                { value: 'Baroque', label: 'Baroque (1600-1750)' },
+                { value: 'Enlightenment', label: 'Enlightenment (1700-1800)' },
+                { value: 'Victorian', label: 'Victorian (1837-1901)' },
                 { value: 'Modern', label: 'Modern (1901-1945)' },
+                { value: 'Post-Modern', label: 'Post-Modern (1945-2000)' },
                 { value: 'Contemporary', label: 'Contemporary (2000-Present)' },
                 { value: 'Futuristic', label: 'Futuristic' }
               ]}
@@ -351,9 +542,13 @@ const PromptGenerator = () => {
             fields: [
               { name: 'aspectRatio', label: 'Aspect Ratio', type: 'select', options: [
                 { value: '1:1', label: 'Square (1:1)' },
+                { value: '4:3', label: 'Landscape (4:3)' },
                 { value: '16:9', label: 'Landscape (16:9)' },
-                { value: '4:3', label: 'Standard (4:3)' },
-                { value: '9:16', label: 'Portrait (9:16)' }
+                { value: '3:2', label: 'Landscape (3:2)' },
+                { value: '2:3', label: 'Portrait (2:3)' },
+                { value: '9:16', label: 'Portrait (9:16)' },
+                { value: '5:7', label: 'Portrait (5:7)' },
+                { value: '1:2', label: 'Portrait (1:2)' }
               ]},
               { name: 'styleReference', label: 'Style Reference', type: 'text' },
               { name: 'styleReferenceUrl', label: 'Reference Image URL', type: 'text' },
