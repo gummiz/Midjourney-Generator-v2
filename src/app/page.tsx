@@ -1,4 +1,4 @@
-import { StructuredPromptGenerator } from "@/components/structured-prompt-generator";
+// import { StructuredPromptGenerator } from "@/components/structured-prompt-generator";
 import  PromptGenerator  from "@/components/promptgenerator"
 
 export default function Home() {

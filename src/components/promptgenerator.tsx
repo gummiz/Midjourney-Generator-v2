@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  CardFooter,
   CardDescription,
 } from "@/components/ui/card";
 import { Copy } from "lucide-react";
