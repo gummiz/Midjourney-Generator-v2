@@ -25,7 +25,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { ClipboardCopy } from "lucide-react";
 import Link from "next/link";
-import debounce from "lodash/debounce";
 
 export function StructuredPromptGenerator() {
   type FormData = {
@@ -86,7 +85,7 @@ export function StructuredPromptGenerator() {
   const [showPrompt, setShowPrompt] = useState(false);
 
   // Memoized function to generate prompt
-  const generatePrompt = useCallback((data: FormData) => {
+  const generatePrompt = (data: FormData) => {
     let prompt = "";
     let parameters = "";
 
@@ -130,35 +129,15 @@ export function StructuredPromptGenerator() {
     }
 
     return prompt + parameters;
-  }, []);
+  };
 
-  // Debounced update function
-  const debouncedUpdatePrompt = useMemo(
-    () =>
-      debounce((newData: FormData) => {
-        const newPrompt = generatePrompt(newData);
-        setGeneratedPrompt(newPrompt);
-      }, 500),
-    [generatePrompt]
-  );
-
-  // Optimized input change handler
-  const handleInputChange = useCallback(
-    (field: string, value: string | boolean) => {
-      const newData = { ...formData, [field]: value };
-      setFormData(newData);
-      setShowPrompt(true);
-      debouncedUpdatePrompt(newData);
-    },
-    [formData, debouncedUpdatePrompt]
-  );
-
-  // Cleanup debounce on unmount
-  useEffect(() => {
-    return () => {
-      debouncedUpdatePrompt.cancel();
-    };
-  }, [debouncedUpdatePrompt]);
+  // Simplified input change handler
+  const handleInputChange = (field: string, value: string | boolean) => {
+    const newData = { ...formData, [field]: value };
+    setFormData(newData);
+    setShowPrompt(true);
+    setGeneratedPrompt(generatePrompt(newData));
+  };
 
   // Memoized copy to clipboard handler
   const copyToClipboard = useCallback(() => {
