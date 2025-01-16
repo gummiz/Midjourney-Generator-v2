@@ -182,7 +182,7 @@ const PromptGenerator = () => {
                   />
                   <span className="text-sm text-gray-600">Enable</span>
                 </div>
-              ) : (
+              )  : (
                 <div className="space-y-2">
                   <Label htmlFor={name} className="font-bold uppercase">{label}</Label>
                   <CardDescription className="text-sm">
@@ -991,6 +991,35 @@ const PromptGenerator = () => {
                   group: "Directors",
                 },
               ],
+              render: () => (
+                <div className="flex items-center gap-4">
+                  <div className="flex-1">
+                    <Input
+                      id="filmStyle"
+                      type="text"
+                      value={formData.styleReference}
+                      onChange={(e) =>
+                        handleInputChange("styleReference", e.target.value)
+                      }
+                      className="h-10"
+                      placeholder="Enter reference number"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="styleReferencerandom"
+                      checked={formData.styleReference === "random"}
+                      onCheckedChange={(checked) => {
+                        handleInputChange(
+                          "styleReference",
+                          checked ? "random" : ""
+                        );
+                      }}
+                    />
+                    <Label htmlFor="styleReferencerandom">Random</Label>
+                  </div>
+                </div>
+                )
             },
           ],
         })}
