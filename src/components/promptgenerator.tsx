@@ -268,7 +268,7 @@ const PromptGenerator = () => {
             <br />
             Developed by Stefan Kummerlöw. Connect with me on{" "}
             <Link
-              href="https://bit.ly/kummerloewLinkedIn"
+              href="https://short.tadaptive.de/LinkedIn"
               target="_blank"
               className="text-purple-600 hover:underline"
             >
@@ -283,16 +283,16 @@ const PromptGenerator = () => {
               GitHub
             </Link>
             ,{" "}
-            <Link
+            {/* <Link
               href="https://bit.ly/XTadaptive"
               target="_blank"
               className="text-purple-600 hover:underline"
             >
               Twitter
-            </Link>{" "}
+            </Link>{" "} */}
             and{" "}
             <Link
-              href="https://bit.ly/IGTadaptive"
+              href="https://short.tadaptive.de/ig-tadaptive"
               target="_blank"
               className="text-purple-600 hover:underline"
             >
